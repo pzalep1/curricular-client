@@ -1,3 +1,28 @@
 main#loginPage {
-    padding-top: 100px;
+    margin: 100px auto;
+    max-width: 40%;
+    background-color: var(--alt-color-mute);
+    padding: 1rem;
+    border-radius: 10px;
+}
+
+
+@media screen and (max-width: 600px) {
+    #loginForm {
+        
+    }
+}
+
+#loginForm {
+    display:block;
+    margin: 0 20%;
+}
+
+#loginButton {
+    color: #FFFFFF;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.5rem;
+    padding: 0.5rem;
+    background-color: var(--main-color);
 }

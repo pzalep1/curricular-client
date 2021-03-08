@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import HomepageBox from './components/HomepageBox.js'
+import './Homepage.css';
 
 class Homepage extends React.Component {
     render() {
