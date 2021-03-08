@@ -12,42 +12,7 @@ html * {
 
 /* Begin header component styles  */
 
-header#appHeader {
-  display: grid;
-  grid-template-rows: 1fr;
-  grid-template-columns: 0.5fr 4fr 1fr;
-  grid-template-areas: "e f g";
-}
-header {
-  background-color: var(--main-color);
-  color: white;
-  position: fixed;
-  top: 0;
-  width: 100%;
-  padding: 1rem;
-  font-size: 1.25rem;
-}
-#ccLogo {
-  grid-area: e;
-  text-align:center;
-  font-size: 1rem;
-  margin: 0;
-  padding: 0.25rem;
-  border: 2px solid white;
-  border-radius: 10px;
-}
-#headerButtons {
-  grid-area: g;
-  padding-right: 5%;
-  text-align:right;
-}
-#headerButtons > button {
-  border: none;
-  border-radius: 10px;
-  padding: 0.25rem;
-  font-size: 1.25rem;
-  margin: 0 0.5rem;
-}
+
 /* End header component styles  */
 
 /* Begin homepage styles */
