@@ -1,38 +1,107 @@
-.App {
-  text-align: center;
+/* Begin global styles  */
+html * {
+  font-family: 'Varela' !important;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+:root {
+  --main-color: #4B7C9B; 
+  --alt-color: rgb(145, 81, 53, 1);
+  --alt-color-mute: rgb(145, 81, 53, 0.5);
 }
+/* End global styles  */
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+/* Begin header component styles  */
+
+header#appHeader {
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-template-columns: 0.5fr 4fr 1fr;
+  grid-template-areas: "e f g";
 }
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+header {
+  background-color: var(--main-color);
   color: white;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  padding: 1rem;
+  font-size: 1.25rem;
 }
+#ccLogo {
+  grid-area: e;
+  text-align:center;
+  font-size: 1rem;
+  margin: 0;
+  padding: 0.25rem;
+  border: 2px solid white;
+  border-radius: 10px;
+}
+#headerButtons {
+  grid-area: g;
+  padding-right: 5%;
+  text-align:right;
+}
+#headerButtons > button {
+  border: none;
+  border-radius: 10px;
+  padding: 0.25rem;
+  font-size: 1.25rem;
+  margin: 0 0.5rem;
+}
+/* End header component styles  */
 
-.App-link {
-  color: #61dafb;
-}
+/* Begin homepage styles */
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+main#homePage {
+  margin-top: 4.25rem;
+  padding: 1rem;
 }
+@media screen and (min-width: 768px) {
+  main#homePage {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    grid-template-areas: "a a"
+                         "b c";
+    grid-column-gap: 1rem;
+    grid-row-gap: 1rem;
+  }
+  #home1 { grid-area: a; }
+  #home2 { grid-area: b; }
+  #home3 { grid-area: c; }
+}
+.homebox {
+  background-color: var(--alt-color-mute);
+  color: white;
+  padding:2rem;
+  border-radius: 20px;
+}
+/* End homepage styles */
+
+/* Begin Footer component styles  */
+footer {
+  background-color: var(--main-color);
+  color: white;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+  padding: 1rem;
+}
+footer > ul, li {
+  font-weight: normal;
+  font-size: 1.25rem;
+  display: inline;
+  margin: 1rem;
+}
+.footerlink {
+  color: white;
+  text-decoration:none;
+}
+.footerlink:hover {
+  font-weight: 600;
+}
+/* End Footer component styles  */
+
+
