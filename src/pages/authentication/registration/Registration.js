@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom';
 import Header from '../../../shared/header/Header.js';
 import Footer from '../../../shared/footer/Footer.js';
 import AuthService from '../../../service/authentication/auth-service.js';
+import './Registration.css'
+
 class Register extends React.Component {
   constructor(props) {
     super(props);
@@ -44,38 +46,44 @@ class Register extends React.Component {
 
   render() {
     return [
+      <Header />,
       <main id = "registrationPage">
-        <form onSubmit={this.handleSubmit}>
-          <label>Full Name: 
-          <input
-            type="text"
-            value={this.state.name}
-            onChange={this.handleName}
-          />
-          </label><br/>
-          <label>Organization: 
-          <input
-            type="text"
-            value={this.state.organization}
-            onChange={this.handleOrg}
-          />
-          </label><br/>
-          <label>Email: 
-          <input
-            type="text"
-            value={this.state.email}
-            onChange={this.handleEmail}
-          />
-          </label><br/>
-          <label>Password: 
-          <input
-            type="password"
-            value={this.state.password}
-            onChange={this.handlePassword}
-          />
-          </label><br/>
-          <input type="submit" vlaue="Submit" />
-        </form>
+        <div id = "regForm">
+          <form onSubmit={this.handleSubmit}>
+            <label><strong>Full Name: </strong>
+            <input
+              type="text"
+              value={this.state.name}
+              onChange={this.handleName}
+            /><br />
+            </label><br/>
+            <label><strong>Organization: </strong>
+            <input
+              type="text"
+              value={this.state.organization}
+              onChange={this.handleOrg}
+            /><br />
+            </label><br/>
+            <label><strong>Email: </strong><br />
+            <input
+              type="text"
+              value={this.state.email}
+              onChange={this.handleEmail}
+            /><br />
+            </label><br/>
+            <label><strong>Password:  </strong>
+            <input
+              type="password"
+              value={this.state.password}
+              onChange={this.handlePassword}
+            /><br />
+            </label><br/>
+            <div id = "regButtonWrapper">
+              <input id = "regButton" type="submit" value="Register" />
+            </div>
+
+          </form>
+          </div>
       </main>,
       <Footer />
     ]

@@ -1,4 +1,4 @@
-main#loginPage {
+main#registrationPage {
     margin: 100px auto;
     max-width: 30%;
     background-color: var(--alt-color-mute);
@@ -8,22 +8,22 @@ main#loginPage {
 
 
 @media screen and (max-width: 600px) {
-    #loginForm {
+    #regForm {
         
     }
 }
 
-#loginForm {
+#regForm {
     display:block;
     width: 33.3%;
     margin: 0 auto;
 }
 
-#loginButtonWrapper {
+#regButtonWrapper {
     text-align:center;
 }
 
-#loginButton {
+#regButton {
     color: #FFFFFF;
     border: none;
     border-radius: 10px;

@@ -5,7 +5,7 @@ import ReactDOM from 'react-dom';
 import Header from './shared/header/Header.js';
 import Footer from './shared/footer/Footer.js';
 import Homepage from './pages/homepage/Homepage.js';
-import Login from './pages/authentication/login/login.js';
+import Login from './pages/authentication/login/Login.js';
 import Register from './pages/authentication/registration/Registration.js';
 
 function App() {

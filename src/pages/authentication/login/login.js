@@ -8,14 +8,16 @@ import './Login.css'
 class Login extends React.Component {
     render() {
       return [
+        <Header />,
         <main id = "loginPage">
-            <div id = "loginForm" class = "form">
+            <div id = "loginForm">
             <form action="Homepage">
                 <label for="fname" required><strong>Username</strong></label><br />              
                 <input type="text" id="username"/><br/><br/>
                 <label for="lname" required><strong>Password</strong></label><br />
                 <input type="text" id="password"/><br/><br/>
-                <input id = "loginButton" type="submit" value="Submit"/>
+                <div id = "loginButtonWrapper">  <input id = "loginButton" type="submit" value="Submit"/></div>
+              
             </form>
             </div>
         </main>,
