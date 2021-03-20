@@ -5,6 +5,7 @@ html * {
 
 :root {
   --main-color: #4B7C9B; 
+  --main-color-mute: rgb(75, 124, 155, 0.5);
   --alt-color: rgb(145, 81, 53, 1);
   --alt-color-mute: rgb(145, 81, 53, 0.5);
 }
