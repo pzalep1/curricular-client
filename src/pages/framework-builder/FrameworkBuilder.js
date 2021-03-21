@@ -11,27 +11,44 @@ class FrameworkBuilder extends React.Component {
         super(props);
         this.state = {
             frameworkName: "",
+            selectedGL: 0,
             guidelines: [{
                 name: "New Guideline 1",
                 content: "Insert Content here",
                 selected: true
             }]
-        }
+        };
+        this.editorName = React.createRef();
+        this.editorText = React.createRef();
     }
 
     componentDidMount() {
-        // [...document.getElementById("guidelineList").getElementsByTagName("li")].forEach(gl => gl.addEventListener("click", () => {
-        //     document.querySelector(".selectedGuideline").classList.toggle("guideline");
-        //     document.querySelector(".selectedGuideline").classList.toggle("selectedGuideline");
-        //     gl.classList.toggle("selectedGuideline");
-        //     gl.classList.toggle("guideline");
 
-        //     //To do: swap the actual guideline area (guidelineEdit) when changing from guideline to guideline. 
-        //     //Make a component (???) for guidelines and have an array of them stored in the FrameworkBuilder state, and change which one 
-        //     //displays in this function
-        // }));
+        this.editorName.current.value = "New Guideline 1";
     }
 
+
+    //Current goals:
+    //Get editor name to populate correctly
+    //If mid-list guideline is selected, de select on adding new guideline 
+
+    getSelectedGuidelineName() {
+        for (let i = 0; i < this.state.guidelines.length; i++) {
+            if (this.state.guidelines[i].selected == true) {
+                return this.state.guidelines[i].name;
+            }
+        }
+    }
+
+    getSelected(findName) {
+        let nameIndex = 0;
+        for (let j = 0; j < this.state.guidelines.length; j++) {
+            if (this.state.guidelines[j].name == findName) {
+                nameIndex = j;
+            }
+        }  
+        return nameIndex;
+    }
 
     //add guideline
     addGuideline() {
@@ -42,35 +59,52 @@ class FrameworkBuilder extends React.Component {
             guidelines: this.state.guidelines.concat(newGuideline)
         });
         //make sure the new guideline is selected
+
+        //REWRITE THIS SO YOU DON'T INTERACT WITH THE DOM
         let glList = [...document.getElementById("guidelineList").getElementsByTagName("li")];
-        glList[glList.length - 1].classList.toggle("selectedGuideline");
-        glList[glList.length - 1].classList.toggle("guideline");
+        for (let j = 0; j < glList.length; j++) {
+            if (j == glList.length -1) {
+                glList[j].classList.toggle("selectedGuideline");
+                glList[j].classList.toggle("guideline");
+            } else {
+                
+            }
+        }
+        //QUESTIONABLE
+        this.editorName.current.value = this.getSelectedGuidelineName();
     }
+
+
 
 
     //Toggle currently selected guideline with state 
     selectGuideline(event) {
-        let temp = this.state.guidelines;
-        temp.forEach(element => {
-            element.selected = false;
-          });
-        this.setState(({guidelines}) => ({guidelines: temp}));
-        let stateIndex = 0;
-        for (let j = 0; j < this.state.guidelines.length; j++) {
-            if (this.state.guidelines[j].name == event.target.firstChild.nodeValue) {
-                stateIndex = j;
+        if (!event.target.classList.contains("selectedGuideline")) {
+            let temp = [...this.state.guidelines];
+            temp.forEach(element => {
+                element.selected = false;
+              });
+            this.setState(({guidelines}) => ({guidelines: temp}));
+            let stateIndex = this.getSelected(event.target.firstChild.nodeValue);
+            let temp2 = [...this.state.guidelines];
+            for (let i = 0; i < temp2.length; i++) {
+                if (i == stateIndex) {
+                    temp2[i].selected = true;
+                } else {
+                    temp2[i].selected = false;
+                }
             }
+            this.setState((guidelines) => ({guidelines: temp2}));
+            event.target.classList.toggle("selectedGuideline");
+            this.setState((selectedGL) => ({selectedGL : stateIndex}));
+            //Way to do this without DOM? 
+            this.editorName.current.value = temp2[stateIndex].name;
         }
-        let temp2 = this.state.guidelines;
-        for (let i = 0; i < temp2.length; i++) {
-            if (i == stateIndex) {
-                temp2[i].selected = true;
-            } else {
-                temp2[i].selected = false;
-            }
-        }
-        this.setState((guidelines) => ({guidelines: temp2}));
-        event.target.classList.toggle("selectedGuideline");
+    }
+
+
+    handleGuidelineNameChange() {
+
     }
 
     handleGuidelineChange() {
@@ -103,9 +137,9 @@ class FrameworkBuilder extends React.Component {
                         </div>
                         <div className = "guidelineEdit">
                                 <label className = "glSectionLabel" for = "guidelineName">Guideline Name</label><br />
-                                <input id = "guidelineName" type = "text"/><br /><br />
+                                <input ref = {this.editorName} id = "guidelineName" type = "text"/><br /><br />
                                 <label className = "glSectionLabel" for = "guidelineContents">Guideline Contents</label><br />
-                                <textarea onChange = {() => this.handleGuidelineChange} id = "guidelineContents" /><br /><br />
+                                <textarea ref = {this.editorText} onChange = {() => this.handleGuidelineChange} id = "guidelineContents" /><br /><br />
                                 <button id = "removeGuideline" className = "guidelineButton">Remove </button>
                                 <button id = "saveGuideline" className = "guidelineButton">Save</button>                            
                         </div>
