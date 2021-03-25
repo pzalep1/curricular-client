@@ -11,8 +11,8 @@ class FrameworkBuilder extends React.Component {
         super(props);
         this.state = {
             frameworkName: "New Framework",
-            selectedGL: 0,
             guidelines: [{
+                id: "",
                 name: "New Guideline 1",
                 content: "Insert Content for Guideline 1 here",
                 selected: true
@@ -24,17 +24,18 @@ class FrameworkBuilder extends React.Component {
         this.handleGuidelineChange = this.handleGuidelineChange.bind(this);
         this.removeGuideline = this.removeGuideline.bind(this);
         this.selectGuideline = this.selectGuideline.bind(this);
+
+
     }
 
     componentDidMount() {
-
+        this.state.guidelines[0].id = Math.random().toString(36).substring(7);
     }
-
 
     getSelected(findName) {
         let nameIndex = 0;
         for (let j = 0; j < this.state.guidelines.length; j++) {
-            if (this.state.guidelines[j].name == findName) {
+            if (this.state.guidelines[j].id == findName) {
                 nameIndex = j;
             }
         }  
@@ -52,7 +53,7 @@ class FrameworkBuilder extends React.Component {
     //add guideline
     addGuideline() {
         let numGls = this.state.guidelines.length;
-        let newGuideline = {name: `New Guideline ${numGls + 1}`, content: `Insert Content for Guideline ${numGls + 1} Here`, selected: true};
+        let newGuideline = {id: `${Math.random().toString(36).substring(7)}`,name: `New Guideline ${numGls + 1}`, content: `Insert Content for Guideline ${numGls + 1} Here`, selected: true};
         //add guideline to state
         let temp = [...this.state.guidelines].map(item => {item.selected = false}).concat(newGuideline);
         this.setState({
@@ -62,18 +63,16 @@ class FrameworkBuilder extends React.Component {
 
 
     //Toggle currently selected guideline 
-    //3/24/21: Redo this function it's fucked 
     selectGuideline(event) {
         if (!event.target.classList.contains("selectedGuideline")) {
             let temp = [...this.state.guidelines];
             temp.forEach(element => {element.selected = false;});
             this.setState(({guidelines}) => ({guidelines: temp}));
-            let stateIndex = this.getSelected(event.target.firstChild.nodeValue);
+            let stateIndex = this.getSelected(event.target.id);
             let temp2 = [...this.state.guidelines];
             for(let e=0;e<temp2.length;e++)e==stateIndex?temp2[e].selected=!0:temp2[e].selected=!1;
             this.setState((guidelines) => ({guidelines: temp2}));
             event.target.classList.toggle("selectedGuideline");
-            this.setState((selectedGL) => ({selectedGL : stateIndex}));
         }
     }
 
@@ -95,7 +94,7 @@ class FrameworkBuilder extends React.Component {
             } else {
                 let temp = [...this.state.guidelines];
                 temp[this.selectedInputNumber() - 1].selected = true;
-                temp.splice(this.selectedInputNumber(), 1);
+                temp.splice(this.selectedInputNumber() + 1, 1);
                 console.log(temp);
                 this.setState((guidelines) => ({guidelines: temp}));
             }
@@ -139,9 +138,8 @@ class FrameworkBuilder extends React.Component {
                     <div id = "guidelineArea">
                         <div className = "guidelines">
                             <ul id = "guidelineList">
-                                {this.state.guidelines.map(gl => <li onClick = {this.selectGuideline}className = {gl.selected ? "selectedGuideline" : "guideline"}>{gl.name}</li>)} 
-                                {/* {this.state.guidelines.map(gl => <li onClick = {(event) => this.selectGuideline(event)}className = {gl.selected ? "selectedGuideline" : "guideline"}>{gl.name}</li>)}  */}
-                            </ul>
+                                {this.state.guidelines.map(gl => <li id = {gl.id} onClick = {this.selectGuideline} className = {gl.selected ? "selectedGuideline" : "guideline"}>{gl.name}</li>)} 
+                             </ul>
                             <button type = "button" onClick = {() => this.addGuideline()} className = "guidelineButton" id = "addGuideline">+ Add Guideline</button>
                         </div>
                         <div className = "guidelineEdit">
@@ -155,7 +153,7 @@ class FrameworkBuilder extends React.Component {
                     </div>
                 </form>
                 <div id = "glSubmitArea">
-                        <button id = "submitGuideline" className = "guidelineButton" type = "submit">Submit Guideline</button>
+                        <button id = "submitGuideline" className = "guidelineButton" type = "submit">Submit Framework</button>
                 </div>
             </main>
             ,<Footer />
