@@ -10,35 +10,26 @@ class FrameworkBuilder extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            frameworkName: "",
+            frameworkName: "New Framework",
             selectedGL: 0,
             guidelines: [{
                 name: "New Guideline 1",
-                content: "Insert Content here",
+                content: "Insert Content for Guideline 1 here",
                 selected: true
             }]
         };
-        this.editorName = React.createRef();
-        this.editorText = React.createRef();
+
+        this.handleFrameworkNameChange = this.handleFrameworkNameChange.bind(this);
+        this.handleGuidelineNameChange = this.handleGuidelineNameChange.bind(this);
+        this.handleGuidelineChange = this.handleGuidelineChange.bind(this);
+        this.removeGuideline = this.removeGuideline.bind(this);
+        this.selectGuideline = this.selectGuideline.bind(this);
     }
 
     componentDidMount() {
 
-        this.editorName.current.value = "New Guideline 1";
     }
 
-
-    //Current goals:
-    //Get editor name to populate correctly
-    //If mid-list guideline is selected, de select on adding new guideline 
-
-    getSelectedGuidelineName() {
-        for (let i = 0; i < this.state.guidelines.length; i++) {
-            if (this.state.guidelines[i].selected == true) {
-                return this.state.guidelines[i].name;
-            }
-        }
-    }
 
     getSelected(findName) {
         let nameIndex = 0;
@@ -50,65 +41,87 @@ class FrameworkBuilder extends React.Component {
         return nameIndex;
     }
 
+    selectedInputNumber() {
+        for (let i = 0; i < this.state.guidelines.length; i++) {
+            if (this.state.guidelines[i].selected == true) {
+                return i;
+            }
+        }
+    }
+
     //add guideline
     addGuideline() {
         let numGls = this.state.guidelines.length;
-        let newGuideline = {name: `New Guideline ${numGls + 1}`, content: "", selected: true};
+        let newGuideline = {name: `New Guideline ${numGls + 1}`, content: `Insert Content for Guideline ${numGls + 1} Here`, selected: true};
         //add guideline to state
+        let temp = [...this.state.guidelines].map(item => {item.selected = false}).concat(newGuideline);
         this.setState({
             guidelines: this.state.guidelines.concat(newGuideline)
-        });
-        //make sure the new guideline is selected
-
-        //REWRITE THIS SO YOU DON'T INTERACT WITH THE DOM
-        let glList = [...document.getElementById("guidelineList").getElementsByTagName("li")];
-        for (let j = 0; j < glList.length; j++) {
-            if (j == glList.length -1) {
-                glList[j].classList.toggle("selectedGuideline");
-                glList[j].classList.toggle("guideline");
-            } else {
-                
-            }
-        }
-        //QUESTIONABLE
-        this.editorName.current.value = this.getSelectedGuidelineName();
+        }, () => {});
     }
 
 
-
-
-    //Toggle currently selected guideline with state 
+    //Toggle currently selected guideline 
+    //3/24/21: Redo this function it's fucked 
     selectGuideline(event) {
         if (!event.target.classList.contains("selectedGuideline")) {
             let temp = [...this.state.guidelines];
-            temp.forEach(element => {
-                element.selected = false;
-              });
+            temp.forEach(element => {element.selected = false;});
             this.setState(({guidelines}) => ({guidelines: temp}));
             let stateIndex = this.getSelected(event.target.firstChild.nodeValue);
             let temp2 = [...this.state.guidelines];
-            for (let i = 0; i < temp2.length; i++) {
-                if (i == stateIndex) {
-                    temp2[i].selected = true;
-                } else {
-                    temp2[i].selected = false;
-                }
-            }
+            for(let e=0;e<temp2.length;e++)e==stateIndex?temp2[e].selected=!0:temp2[e].selected=!1;
             this.setState((guidelines) => ({guidelines: temp2}));
             event.target.classList.toggle("selectedGuideline");
             this.setState((selectedGL) => ({selectedGL : stateIndex}));
-            //Way to do this without DOM? 
-            this.editorName.current.value = temp2[stateIndex].name;
+        }
+    }
+
+    removeGuideline() {
+        if (this.state.guidelines.length > 1) {
+            //Case 1: removing first guideline -> move to second guideline
+            if (this.selectedInputNumber() == 0) {
+                let temp = [...this.state.guidelines];
+                temp[1].selected = true;
+                temp.shift();
+                this.setState((guidelines) => ({guidelines: temp}));    
+            //Case 2: removing last guideline -> move to second last guideline
+            } else if (this.selectedInputNumber() == this.state.guidelines.length - 1) {
+                let temp = [...this.state.guidelines];
+                temp[this.state.guidelines.length - 2].selected = true;
+                temp.pop();
+                this.setState((guidelines) => ({guidelines: temp}));
+            //Case 3: removing middle guideline -> move to previous guideline
+            } else {
+                let temp = [...this.state.guidelines];
+                temp[this.selectedInputNumber() - 1].selected = true;
+                temp.splice(this.selectedInputNumber(), 1);
+                console.log(temp);
+                this.setState((guidelines) => ({guidelines: temp}));
+            }
+        } else {
+            console.log("cant remove the last guideline");
         }
     }
 
 
-    handleGuidelineNameChange() {
-
+    handleGuidelineNameChange(e) {
+        let newName = e.target.value;
+        let temp = [...this.state.guidelines];
+        temp[this.selectedInputNumber()].name = newName;
+        this.setState((guidelines) => ({guidelines: temp}));
     }
 
-    handleGuidelineChange() {
+    handleGuidelineChange(e) {
+        let newContent = e.target.value;
+        let temp = [...this.state.guidelines];
+        temp[this.selectedInputNumber()].content = newContent;
+        this.setState((guidelines) => ({guidelines: temp}));
+    }
 
+    handleFrameworkNameChange(e) {
+        let newFname = e.target.value;
+        this.setState((frameworkName) => ({frameworkName: newFname}));
     }
 
     render() {
@@ -119,34 +132,30 @@ class FrameworkBuilder extends React.Component {
                 <form>
                     <div id = "nameEditor">
                         <div id = "nameEditorWrapper">   
-                            <label for = "frameworkName" >Framework Name</label>
-                            <input id = "frameworkName" type = "text" />
+                            <label htmlFor = "frameworkName" >Framework Name</label>
+                            <input value = {this.state.frameworkName} onChange = {this.handleFrameworkNameChange} id = "frameworkName" type = "text" />
                         </div>
                     </div>
                     <div id = "guidelineArea">
                         <div className = "guidelines">
                             <ul id = "guidelineList">
-                                { 
-                                    this.state.guidelines.map(gl => 
-                                            <li onClick = {(event) => this.selectGuideline(event)}className = {gl.selected ? "selectedGuideline" : "guideline"}>{gl.name}</li>    
-                                    )
-                                }
-                                
+                                {this.state.guidelines.map(gl => <li onClick = {this.selectGuideline}className = {gl.selected ? "selectedGuideline" : "guideline"}>{gl.name}</li>)} 
+                                {/* {this.state.guidelines.map(gl => <li onClick = {(event) => this.selectGuideline(event)}className = {gl.selected ? "selectedGuideline" : "guideline"}>{gl.name}</li>)}  */}
                             </ul>
                             <button type = "button" onClick = {() => this.addGuideline()} className = "guidelineButton" id = "addGuideline">+ Add Guideline</button>
                         </div>
                         <div className = "guidelineEdit">
-                                <label className = "glSectionLabel" for = "guidelineName">Guideline Name</label><br />
-                                <input ref = {this.editorName} id = "guidelineName" type = "text"/><br /><br />
-                                <label className = "glSectionLabel" for = "guidelineContents">Guideline Contents</label><br />
-                                <textarea ref = {this.editorText} onChange = {() => this.handleGuidelineChange} id = "guidelineContents" /><br /><br />
-                                <button id = "removeGuideline" className = "guidelineButton">Remove </button>
-                                <button id = "saveGuideline" className = "guidelineButton">Save</button>                            
+                                <label className = "glSectionLabel" htmlFor = "guidelineName">Guideline Name</label><br />
+                                <input value = {this.state.guidelines[this.selectedInputNumber()].name} onChange = {this.handleGuidelineNameChange} id = "guidelineName" type = "text"/><br /><br />
+                                <label className = "glSectionLabel" htmlFor = "guidelineContents">Guideline Contents</label><br />
+                                <textarea value = {this.state.guidelines[this.selectedInputNumber()].content} onChange = {this.handleGuidelineChange} id = "guidelineContents" /><br /><br />
+                                <button type = "button" onClick = {this.removeGuideline} id = "removeGuideline" className = "guidelineButton">Remove</button>
+                                {/* <button id = "saveGuideline" className = "guidelineButton">Save</button>                             */}
                         </div>
                     </div>
                 </form>
                 <div id = "glSubmitArea">
-                        <button id = "submitGuideline" class = "guidelineButton" type = "submit">Submit Guideline</button>
+                        <button id = "submitGuideline" className = "guidelineButton" type = "submit">Submit Guideline</button>
                 </div>
             </main>
             ,<Footer />
