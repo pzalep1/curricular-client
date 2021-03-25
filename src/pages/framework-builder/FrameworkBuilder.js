@@ -25,17 +25,17 @@ class FrameworkBuilder extends React.Component {
         this.removeGuideline = this.removeGuideline.bind(this);
         this.selectGuideline = this.selectGuideline.bind(this);
 
-
+        this.glCount = 1;
     }
 
     componentDidMount() {
         this.state.guidelines[0].id = Math.random().toString(36).substring(7);
     }
 
-    getSelected(findName) {
+    getSelected(findId) {
         let nameIndex = 0;
         for (let j = 0; j < this.state.guidelines.length; j++) {
-            if (this.state.guidelines[j].id == findName) {
+            if (this.state.guidelines[j].id == findId) {
                 nameIndex = j;
             }
         }  
@@ -52,13 +52,13 @@ class FrameworkBuilder extends React.Component {
 
     //add guideline
     addGuideline() {
-        let numGls = this.state.guidelines.length;
-        let newGuideline = {id: `${Math.random().toString(36).substring(7)}`,name: `New Guideline ${numGls + 1}`, content: `Insert Content for Guideline ${numGls + 1} Here`, selected: true};
-        //add guideline to state
+        this.glCount++;
+        let newGuideline = {id: `${Math.random().toString(36).substring(7)}`,name: `New Guideline ${this.glCount}`, content: `Insert Content for Guideline ${this.glCount} Here`, selected: true};
+        //Create dummy state with new guideline, then add to current state
         let temp = [...this.state.guidelines].map(item => {item.selected = false}).concat(newGuideline);
         this.setState({
             guidelines: this.state.guidelines.concat(newGuideline)
-        }, () => {});
+        }, () => {});    
     }
 
 
@@ -148,7 +148,6 @@ class FrameworkBuilder extends React.Component {
                                 <label className = "glSectionLabel" htmlFor = "guidelineContents">Guideline Contents</label><br />
                                 <textarea value = {this.state.guidelines[this.selectedInputNumber()].content} onChange = {this.handleGuidelineChange} id = "guidelineContents" /><br /><br />
                                 <button type = "button" onClick = {this.removeGuideline} id = "removeGuideline" className = "guidelineButton">Remove</button>
-                                {/* <button id = "saveGuideline" className = "guidelineButton">Save</button>                             */}
                         </div>
                     </div>
                 </form>
