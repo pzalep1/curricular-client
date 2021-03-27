@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Header from '../../shared/header/Header.js';
 import Footer from '../../shared/footer/Footer.js';
+import FrameworkService from '../../service/framework-service.js';
 
 import './FrameworkBuilder.css';
 
@@ -11,11 +12,14 @@ class FrameworkBuilder extends React.Component {
         super(props);
         this.state = {
             frameworkName: "New Framework",
+            author: "",
+            year: 2021,
+            level: "K-12",
             guidelines: [{
                 id: "",
-                name: "New Guideline 1",
-                content: "Insert Content for Guideline 1 here",
-                selected: true
+                selected: true,
+                name: "New Guideline",
+                content: "Insert Content for Guideline here"
             }]
         };
 
@@ -24,12 +28,17 @@ class FrameworkBuilder extends React.Component {
         this.handleGuidelineChange = this.handleGuidelineChange.bind(this);
         this.removeGuideline = this.removeGuideline.bind(this);
         this.selectGuideline = this.selectGuideline.bind(this);
-
-        this.glCount = 1;
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.createYearList = this.createYearList.bind(this);
+        this.createLevelList = this.createLevelList.bind(this);
+        this.handleYearChange = this.handleYearChange.bind(this);
+        this.handleLevelChange = this.handleLevelChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     componentDidMount() {
         this.state.guidelines[0].id = Math.random().toString(36).substring(7);
+        this.createYearList();
     }
 
     getSelected(findId) {
@@ -50,15 +59,24 @@ class FrameworkBuilder extends React.Component {
         }
     }
 
+    createYearList() {
+        let vals = [];
+        [...Array(36).keys()].map((y) => vals.push(<option value = {1995+y}>{1995+y}</option>));
+        return vals;
+    }
+
+    createLevelList() {
+        let vals = [];
+        ["K-12", "Collegiate", "Postgraduate", "Professional"].map(o => vals.push(<option value = {o}>{o}</option>));
+        return vals;
+    }
+
     //add guideline
     addGuideline() {
-        this.glCount++;
-        let newGuideline = {id: `${Math.random().toString(36).substring(7)}`,name: `New Guideline ${this.glCount}`, content: `Insert Content for Guideline ${this.glCount} Here`, selected: true};
+        let newGuideline = {id: `${Math.random().toString(36).substring(7)}`,name: `New Guideline`, content: `Insert Content for Guideline Here`, selected: true};
         //Create dummy state with new guideline, then add to current state
         let temp = [...this.state.guidelines].map(item => {item.selected = false}).concat(newGuideline);
-        this.setState({
-            guidelines: this.state.guidelines.concat(newGuideline)
-        }, () => {});    
+        this.setState({guidelines: this.state.guidelines.concat(newGuideline)}, () => {});    
     }
 
 
@@ -115,24 +133,45 @@ class FrameworkBuilder extends React.Component {
         let newContent = e.target.value;
         let temp = [...this.state.guidelines];
         temp[this.selectedInputNumber()].content = newContent;
-        this.setState((guidelines) => ({guidelines: temp}));
+        this.setState(() => ({guidelines: temp}));
     }
 
     handleFrameworkNameChange(e) {
-        let newFname = e.target.value;
-        this.setState((frameworkName) => ({frameworkName: newFname}));
+        this.setState(() => ({frameworkName: e.target.value}));
+    }
+
+    handleYearChange(e) {
+        this.setState(() => ({year: e.target.value}));
+    }
+
+    handleLevelChange(e) {
+        this.setState(() => ({level: e.target.value}));
+    }
+
+    handleSubmit(e) {
+        e.preventDefault();
+        //Copy state and remove the guideline id and selected attributes (these are not necessary for the backend)
+        let copyState = {frameworkName: this.state.frameworkName,author: this.state.author,level: this.state.level,year: this.state.year,guidelines: this.state.guidelines};
+        copyState.guidelines = copyState.guidelines.map(({id, selected, ...rest}) => rest);
+        console.log(copyState);
+        FrameworkService.register(copyState);
+        // alert("New framework added");
+
     }
 
     render() {
-
         return [
             <Header />, 
             <main id = "frameworkBuilder">
-                <form>
+                <form onSubmit = {this.handleSubmit}>
                     <div id = "nameEditor">
                         <div id = "nameEditorWrapper">   
                             <label htmlFor = "frameworkName" >Framework Name</label>
                             <input value = {this.state.frameworkName} onChange = {this.handleFrameworkNameChange} id = "frameworkName" type = "text" />
+                            <label htmlFor = "yearSelect" >Year</label>
+                            <select value = {this.state.year} onChange = {this.handleYearChange}id = "yearSelect">{this.createYearList()}</select>
+                            <label htmlFor = "levelSelect">Level</label>
+                            <select value = {this.state.level} onChange = {this.handleLevelChange}id = "levelSelect">{this.createLevelList()}</select>
                         </div>
                     </div>
                     <div id = "guidelineArea">
@@ -150,10 +189,11 @@ class FrameworkBuilder extends React.Component {
                                 <button type = "button" onClick = {this.removeGuideline} id = "removeGuideline" className = "guidelineButton">Remove</button>
                         </div>
                     </div>
-                </form>
-                <div id = "glSubmitArea">
+                    <div id = "glSubmitArea">
                         <button id = "submitGuideline" className = "guidelineButton" type = "submit">Submit Framework</button>
-                </div>
+                    </div>
+                </form>
+
             </main>
             ,<Footer />
         ]

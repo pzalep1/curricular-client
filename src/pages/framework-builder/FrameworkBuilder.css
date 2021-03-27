@@ -6,9 +6,11 @@ main#frameworkBuilder {
     height: 1000px;
 }
 #nameEditor {
-    width: 50%;
+    width: 100%;
     margin: 0 auto;
 }
+
+
 #nameEditorWrapper {
     text-align: center;
 }
@@ -25,7 +27,15 @@ main#frameworkBuilder {
     font-size: 1.5rem;
     border: none;
     border-radius: 10px;
-    width: 60%;
+    width: 25%;
+}
+
+#nameEditorWrapper > select {
+    height: 2.5rem;
+    font-size: 1.5rem;
+    border: none;
+    border-radius: 10px;
+
 }
 #guidelineArea {
     margin: 1rem auto;
@@ -83,3 +93,11 @@ main#frameworkBuilder {
 #submitGuideline {
     margin-right: 3rem;
 }
+
+#frameworkName {
+    margin-right:0.5rem;
+}
+#yearSelect {
+    margin-right: 0.5rem;
+}
+
