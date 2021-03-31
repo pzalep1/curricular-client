@@ -1,8 +1,13 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from 'react-router-dom';
 import Header from '../../../shared/header/Header.js';
 import Footer from '../../../shared/footer/Footer.js';
-import AuthService from '../../../service/authentication/auth-service.js';
+import AuthService from '../../../service/auth-service.js';
 import './Registration.css'
 
 class Register extends React.Component {
@@ -79,7 +84,8 @@ class Register extends React.Component {
             /><br />
             </label><br/>
             <div id = "regButtonWrapper">
-              <input id = "regButton" type="submit" value="Register" />
+              <Link to="/login"><input id = "regButton" type="submit" value="Register" /></Link>
+              <Link to="/login">Already have an account? Click Here!</Link>
             </div>
 
           </form>

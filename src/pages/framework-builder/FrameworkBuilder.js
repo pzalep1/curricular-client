@@ -138,6 +138,7 @@ class FrameworkBuilder extends React.Component {
 
     handleFrameworkNameChange(e) {
         this.setState(() => ({frameworkName: e.target.value}));
+        FrameworkService.createFramework(this.state.frameworkName);
     }
 
     handleYearChange(e) {
@@ -154,7 +155,7 @@ class FrameworkBuilder extends React.Component {
         let copyState = {frameworkName: this.state.frameworkName,author: this.state.author,level: this.state.level,year: this.state.year,guidelines: this.state.guidelines};
         copyState.guidelines = copyState.guidelines.map(({id, selected, ...rest}) => rest);
         console.log(copyState);
-        FrameworkService.register(copyState);
+        FrameworkService.createGuidelines(copyState.guidelines);
         // alert("New framework added");
 
     }
