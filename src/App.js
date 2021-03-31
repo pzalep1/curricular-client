@@ -8,6 +8,7 @@ import Homepage from './pages/homepage/Homepage.js';
 import Login from './pages/authentication/login/Login.js';
 import Register from './pages/authentication/registration/Registration.js';
 import FrameworkBuilder from './pages/framework-builder/FrameworkBuilder.js';
+import GuidelineBuilder from './pages/framework-builder/GuidelineBuilder.js';
 
 function App() {
   const apiUrl = 'http://localhost:3000';
