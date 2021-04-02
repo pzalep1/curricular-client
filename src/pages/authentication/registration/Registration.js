@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import {
   BrowserRouter as Router,
   Switch,
@@ -7,17 +8,17 @@ import {
 } from 'react-router-dom';
 import Header from '../../../shared/header/Header.js';
 import Footer from '../../../shared/footer/Footer.js';
-import AuthService from '../../../service/auth-service.js';
+import AuthService from '../../../service/auth-service'
 import './Registration.css'
 
 class Register extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-        name: "",
-        organization: "",
-        password: "",
-        email: ""
+        "name": "",
+        "organization": "",
+        "password": "",
+        "email": ""
     }
     this.handleName = this.handleName.bind(this);
     this.handleOrg = this.handleOrg.bind(this);
@@ -45,7 +46,6 @@ class Register extends React.Component {
   handleSubmit(event) {
     AuthService.register(this.state);
     alert('Your Accounnt has been created!');
-    event.preventDefault();
   }
   
 
@@ -54,7 +54,7 @@ class Register extends React.Component {
       <Header />,
       <main id = "registrationPage">
         <div id = "regForm">
-          <form onSubmit={this.handleSubmit}>
+          <form>
             <label><strong>Full Name: </strong>
             <input
               type="text"
@@ -84,7 +84,7 @@ class Register extends React.Component {
             /><br />
             </label><br/>
             <div id = "regButtonWrapper">
-              <Link to="/login"><input id = "regButton" type="submit" value="Register" /></Link>
+              <Link to="/" role="button"><input id = "regButton" type="submit" value="Register" onClick={this.handleSubmit}/></Link>
               <Link to="/login">Already have an account? Click Here!</Link>
             </div>
 

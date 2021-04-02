@@ -1,28 +1,58 @@
 const apiURL = 'http://localhost:3000';
 
 const AuthService = {
-    register: (value) => {
-        console.log(value.body);
+    register: (user) => {
+        console.log(user);
         fetch(apiURL + '/users', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.parse(value),
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+             },
+            body: JSON.stringify({user})
         })
-            .then(async res => {
-                const data = await res.json();
+        .then(async res => {
+            const data = await res.json();
 
-                if (!res.ok) {
-                    const error = (data && data.message) || res.status;
-                    return Promise.reject(error);
-                }
-            })
-            .catch(e => {
-                console.error('There was an error!', e);
-            })
+            if (!res.ok) {
+                const error = (data && data.message) || res.status;
+                return Promise.reject(error);
+            } else {
+                console.log("registerd successefully!");
+            }
+        })
+        .catch(e => {
+            console.error('There was an error!', e);
+        })
     },
 
-    secondValidationMethod: function(value) {
-        //inspect the value
+    getUser: () => {
+        
+    },
+
+    login: (user) => {
+        console.log(user);
+        fetch(apiURL+'/users/tokens', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify({user})
+        })
+        .then(async res => {
+            const data = await res.json();
+
+            if (!res.ok) {
+                const error = (data && data.message) || res.status;
+                return Promise.reject(error);
+            } else {
+                console.log("logged in successefully!");
+            }
+        })
+        .catch(e => {
+            console.error('There was an error!', e);
+        })
     }
 };
 

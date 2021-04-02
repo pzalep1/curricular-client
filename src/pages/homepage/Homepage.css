@@ -24,5 +24,8 @@ main#homePage {
     padding:2rem;
     border-radius: 20px;
   }
+  .homebox#home4 {
+    background-color: white;
+  }
   /* End homepage styles */
   

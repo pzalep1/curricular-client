@@ -1,5 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link
+  } from 'react-router-dom';
 import Header from '../../shared/header/Header.js';
 import Footer from '../../shared/footer/Footer.js';
 import FrameworkService from '../../service/framework-service.js';
@@ -10,16 +16,17 @@ class GuidelineBuilder extends React.Component {
 
     constructor(props) {
         super(props);
+        this.state = {};
         this.state = {
-            frameworkName: "New Framework",
-            author: "",
-            year: 2021,
-            level: "K-12",
-            guidelines: [{
-                id: "",
-                selected: true,
-                name: "New Guideline",
-                content: "Insert Content for Guideline here"
+            "frameworkName": "New Framework",
+            "author": "60660ee951c6bd1b3265c10c",
+            "year": "2021",
+            "level": "K-12",
+            "guidelines": [{
+                "id": "",
+                "selected": true,
+                "name": "New Guideline",
+                "content": "Insert Content for Guideline here"
             }]
         };
 
@@ -123,12 +130,12 @@ class GuidelineBuilder extends React.Component {
 
 
     handleSubmit(e) {
-        e.preventDefault();
+        //e.preventDefault();
         //Copy state and remove the guideline id and selected attributes (these are not necessary for the backend)
         let copyState = {frameworkName: this.state.frameworkName,author: this.state.author,level: this.state.level,year: this.state.year,guidelines: this.state.guidelines};
         copyState.guidelines = copyState.guidelines.map(({id, selected, ...rest}) => rest);
         console.log(copyState);
-        FrameworkService.register(copyState);
+        FrameworkService.createGuidelines(this.state.guidelines);
         // alert("New framework added");
 
     }
@@ -164,7 +171,7 @@ class GuidelineBuilder extends React.Component {
                         </div>
                     </div>
                     <div id = "glSubmitArea">
-                        <button id = "submitGuideline" className = "guidelineButton" type = "submit">Submit Framework</button>
+                        <Link to="/" role="button"><input id = "submitGuideline" className="guidelineButton" type="submit" value="Submit Guidelines" onClick={this.handleSubmit}/></Link>
                     </div>
                 </form>
 

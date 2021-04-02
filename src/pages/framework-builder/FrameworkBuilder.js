@@ -1,8 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link
+  } from 'react-router-dom';
 import Header from '../../shared/header/Header.js';
 import Footer from '../../shared/footer/Footer.js';
 import FrameworkService from '../../service/framework-service.js';
+import AuthService from '../../service/auth-service';
 
 import './FrameworkBuilder.css';
 
@@ -10,14 +17,15 @@ class FrameworkBuilder extends React.Component {
 
     constructor(props) {
         super(props);
+        this.state = {};
         this.state = {
-            frameworkName: "New Framework",
-            author: "",
-            year: 2021,
-            level: "K-12",
+            "name": "New Framework",
+            "author": "60660ee951c6bd1b3265c10c",
+            "year": "2021",
+            "levels": ["Collegiate"]
         };
 
-        this.handleFrameworkNameChange = this.handleFrameworkNameChange.bind(this);
+        this.handleNameChange = this.handleNameChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.createYearList = this.createYearList.bind(this);
         this.createLevelList = this.createLevelList.bind(this);
@@ -28,6 +36,7 @@ class FrameworkBuilder extends React.Component {
 
     componentDidMount() {
         this.createYearList();
+        //this.setState(() => ({author: AuthService.getUser()}))
     }
 
     createYearList() {
@@ -42,9 +51,8 @@ class FrameworkBuilder extends React.Component {
         return vals;
     }
 
-    handleFrameworkNameChange(e) {
-        this.setState(() => ({frameworkName: e.target.value}));
-        FrameworkService.createFramework(this.state.frameworkName);
+    handleNameChange(e) {
+        this.setState(() => ({name: e.target.value}));
     }
 
     handleYearChange(e) {
@@ -56,10 +64,10 @@ class FrameworkBuilder extends React.Component {
     }
 
     handleSubmit(e) {
-        e.preventDefault();
-        let copyState = {frameworkName: this.state.frameworkName,author: this.state.author,level: this.state.level,year: this.state.year};
+        //e.preventDefault();
+        let copyState = {name: this.state.name,author: this.state.author,levels: this.state.levels,year: this.state.year};
         console.log(copyState);
-        FrameworkService.createGuidelines(copyState.guidelines);
+        FrameworkService.createFramework(this.state);
         // alert("New framework added");
 
     }
@@ -72,20 +80,20 @@ class FrameworkBuilder extends React.Component {
                     <h1>Create New Framework</h1>
                 </div>
                 
-                <form onSubmit = {this.handleSubmit}>
+                <form>
                     <div id = "nameEditor">
                         <div id = "nameEditorWrapper">   
                             <label htmlFor = "frameworkName" >Framework Name</label><br />
-                            <input value = {this.state.frameworkName} onChange = {this.handleFrameworkNameChange} id = "frameworkName" type = "text" /><br /><br />
+                            <input value = {this.state.name} onChange = {this.handleNameChange} id = "frameworkName" type = "text" /><br /><br />
                             <label htmlFor = "yearSelect" >Year</label>
                             <select value = {this.state.year} onChange = {this.handleYearChange}id = "yearSelect">{this.createYearList()}</select>
                             <label htmlFor = "levelSelect">Level</label>
-                            <select value = {this.state.level} onChange = {this.handleLevelChange}id = "levelSelect">{this.createLevelList()}</select><br /><br />
+                            <select value = {this.state.levels} onChange = {this.handleLevelChange}id = "levelSelect">{this.createLevelList()}</select><br /><br />
                         </div>
                     </div>
  
                     <div id = "createWrapper">
-                        <button id = "createFramework" className = "guidelineButton" type = "submit">Create Framework</button>
+                        <Link to="/frameworkbuilder/guidelines" role="button"><input id = "regButton" type="submit" value="Create Guidelines" onClick={this.handleSubmit}/></Link>
                     </div>
                 </form>
 
@@ -94,7 +102,5 @@ class FrameworkBuilder extends React.Component {
         ]
     }
 }
-
-
 
 export default FrameworkBuilder;
