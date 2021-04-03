@@ -1,39 +1,55 @@
-#appHeader {
-    display: grid;
-    grid-template-rows: 1fr;
-    grid-template-columns: 0.5fr 4fr 1fr;
-    grid-template-areas: "e f g";
+.appHeader{
+  position: fixed;
+  top: 0;
+  width: 100%;
+  padding: 4px;
+}
+
+nav{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+}
+
+#logo {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: white;
+  max-height: 75px;
+  max-width: 75px;
+  border-radius: 5px;
+  margin-left: 2px;
+}
+
+button {
+  border: none;
+  border-radius: 5px;
+  font-size: 18px;
+  padding: 8px;
+  margin: 10px 5px 10px 5px;
+  background-color: white;
+}
+
+.buttons {
+  padding-right: 10px;
+}
+
+#login {
+  background-color: var(--main-color);  
+}
+
+@media only screen and (max-width: 500px) {
+  nav {
+    padding: 10px;
   }
 
-  #logo {
-    grid-area: e;
-    background-color: white;
-    max-height: 65px;
-    max-width: 65px;
-    border-radius: 5px;
+  button {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
-
-  header {
-    background-color: var(--main-color);
-    position: fixed;
-    top: 0;
-    width: 100%;
-    padding: 4px;
-  }
-
-  #headerButtons {
-    grid-area: g;
-    padding: 10px 25px;
-    float: right;
-    text-align: right;
-    display: block;
-  }
-  #headerButtons > Button {
-    background-color: var(--main-color-mute);
-    border: none;
-    border-radius: 5px;
-    font-size: 1.3rem;
-    padding: 0.5rem;
-    margin: 1px;
-    background-color: white;
-  }
+}
