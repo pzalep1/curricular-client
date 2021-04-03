@@ -6,10 +6,9 @@ import {
   Route,
   Link
 } from 'react-router-dom';
-import Header from '../../../shared/header/Header.js';
-import Footer from '../../../shared/footer/Footer.js';
 import AuthService from '../../../service/auth-service'
 import './Registration.css'
+import Logo from './favicon.ico'
 
 class Register extends React.Component {
   constructor(props) {
@@ -51,47 +50,50 @@ class Register extends React.Component {
 
   render() {
     return [
-      <Header />,
-      <main id = "registrationPage">
-        <div id = "regForm">
+      <div class="registrationPage">
+        <img class="logo" src={Logo} alt="Curricular Coffee"/>
+          <h1 class="registration-header">REGISTER</h1>
           <form>
-            <label><strong>Full Name: </strong>
-            <input
-              type="text"
-              value={this.state.name}
-              onChange={this.handleName}
-            /><br />
-            </label><br/>
-            <label><strong>Organization: </strong>
-            <input
-              type="text"
-              value={this.state.organization}
-              onChange={this.handleOrg}
-            /><br />
-            </label><br/>
-            <label><strong>Email: </strong><br />
-            <input
-              type="text"
-              value={this.state.email}
-              onChange={this.handleEmail}
-            /><br />
-            </label><br/>
-            <label><strong>Password:  </strong>
-            <input
-              type="password"
-              value={this.state.password}
-              onChange={this.handlePassword}
-            /><br />
-            </label><br/>
-            <div id = "regButtonWrapper">
-              <Link to="/" role="button"><input id = "regButton" type="submit" value="Register" onClick={this.handleSubmit}/></Link>
-              <Link to="/login">Already have an account? Click Here!</Link>
-            </div>
-
+            <fieldset class="input">
+              <legend>Email</legend>
+              <input
+                type="text"
+                value={this.state.email}
+                onChange={this.handleEmail}
+                required
+              />
+            </fieldset>
+            <fieldset class="input">
+              <legend>Password</legend>
+              <input
+                type="password"
+                value={this.state.password}
+                onChange={this.handlePassword}
+                required
+              />            
+            </fieldset>
+            <fieldset class="input">
+              <legend>Full Name</legend>
+              <input
+                type="text"
+                value={this.state.name}
+                onChange={this.handleName}
+                required
+              />            
+            </fieldset>
+            <fieldset class="input">
+              <legend>Organization</legend>
+              <input
+                type="text"
+                value={this.state.organization}
+                onChange={this.handleOrg}
+                required
+              />            
+            </fieldset>
+            <Link to="/" style={{ textDecoration: 'none', color: 'var(--main-color)'}}><input class="button" type="submit" value="Create" onClick={this.handleSubmit}/></Link>
           </form>
-          </div>
-      </main>,
-      <Footer />
+          <Link class="register" to="/login" style={{ textDecoration: 'none', color: 'var(--main-color)', textAlign: 'center'}}>Already have an account? Click Here!</Link>
+        </div>      
     ]
   }
 }
