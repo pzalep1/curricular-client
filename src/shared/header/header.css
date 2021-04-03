@@ -1,27 +1,19 @@
-.appHeader{
-  position: fixed;
-  top: 0;
-  width: 100%;
-  padding: 4px;
-}
-
 nav{
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 20px;
 }
 
-#logo {
+nav {
+  background-color: white;
+}
+
+.header-image {
   display: flex;
   flex-direction: row;
-  align-items: center;
-  background-color: white;
-  max-height: 75px;
-  max-width: 75px;
-  border-radius: 5px;
-  margin-left: 2px;
+  height: 100px;
+  width: 100px;
 }
 
 button {
@@ -39,17 +31,4 @@ button {
 
 #login {
   background-color: var(--main-color);  
-}
-
-@media only screen and (max-width: 500px) {
-  nav {
-    padding: 10px;
-  }
-
-  button {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
 }

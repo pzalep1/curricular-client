@@ -8,6 +8,7 @@ import {
 import Header from '../../../shared/header/Header.js';
 import Footer from '../../../shared/footer/Footer.js';
 import './Login.css';
+import Logo from './logo.png';
 import AuthService from '../../../service/auth-service.js';
 
 class Login extends React.Component {
@@ -36,31 +37,32 @@ class Login extends React.Component {
 
     render() {
       return [
-        <Header />,
-        <main id = "loginPage">
+        <div class="loginPage">
+          <img class="logo" src={Logo} alt="Curricular Coffee"/>
+          <h1 class="login-header">LOGIN</h1>
           <form>
-            <label><strong>Username </strong>
-            <input
-              type="text"
-              value={this.state.username}
-              onChange={this.handleUsername}
-              required
-            /><br />
-            </label><br/>
-            <label><strong>Password </strong>
-            <input
-              type="password"
-              value={this.state.password}
-              onChange={this.handlePassword}
-              required
-            /><br />
-            </label><br/>
-            <Link to="/" role="button"><input id = "regButton" type="submit" value="Login" onClick={this.handleSubmit}/></Link>
-            <Link to="/register">Need an account? Click Here!</Link>
+            <fieldset class="input">
+              <legend>Email</legend>
+              <input
+                type="text"
+                value={this.state.username}
+                onChange={this.handleUsername}
+                required
+              />
+            </fieldset>
+            <fieldset class="input">
+              <legend>Password</legend>
+              <input
+                type="password"
+                value={this.state.password}
+                onChange={this.handlePassword}
+                required
+              />            
+            </fieldset>
+            <Link to="/" style={{ textDecoration: 'none', color: 'var(--main-color)'}}><input class="button" type="submit" value="Sign In" onClick={this.handleSubmit}/></Link>
           </form>
-            
-        </main>,
-        <Footer />
+          <Link class="register" to="/register" style={{ textDecoration: 'none', color: 'var(--main-color)', textAlign: 'center'}}>Need an account? Click Here!</Link>
+        </div>
       ]
     }
   }

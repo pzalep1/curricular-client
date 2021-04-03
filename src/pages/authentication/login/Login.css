@@ -1,33 +1,66 @@
-main#loginPage {
-    margin: 100px auto;
+.logo {
+    height: 65%;
+    width: 65%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.loginPage {
+    margin: 50px auto;
     max-width: 30%;
-    background-color: var(--alt-color-mute);
-    padding: 1rem;
+    background-color: white;
+    padding: 20px;
     border-radius: 10px;
+    
 }
 
-
-@media screen and (max-width: 600px) {
-    #loginForm {
-        
-    }
+.login-header {
+    color: var(--main-color);
+    text-align: center;
+    margin: 0 10px 10px 10px;
 }
 
-#loginForm {
-    display:block;
-    width: 33.3%;
-    margin: 0 auto;
+legend {
+    color: var(--main-color);
 }
 
-#loginButtonWrapper {
-    text-align:center;
+input {
+    border: none;
+    outline: none;
+    margin: 5px;
+    width: 100%;
 }
 
-#loginButton {
+.input {
+    background-color: white;
+    border-radius: 5px;
+}
+
+form {
+    min-width: 100px;
+    display: block;
+    margin: auto;
+}
+
+.button {
     color: #FFFFFF;
     border: none;
-    border-radius: 10px;
-    font-size: 1.5rem;
-    padding: 0.5rem;
+    font-size: 18px;
+    padding: 10px;
     background-color: var(--main-color);
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
+
+.button:hover {
+    cursor: pointer;
+}
+
+.register {
+    padding: 10px;
+    display: block;
+    text-align: center;
+}
+

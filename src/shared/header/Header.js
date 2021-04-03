@@ -36,15 +36,14 @@ class Header extends React.Component {
 
   render() { 
     return (
-      <nav class="appHeader">
-        <div class="logo">
-          <Link to='/'><img id="logo" src={logo} alt="Curricular Coffee"/></Link>
+      <nav>
+        <div class="header-logo">
+          <Link to='/'><img class="header-image" src={logo} alt="Curricular Coffee"/></Link>
         </div>
         <div class="buttons">
           {this.buttons()}
         </div>
       </nav>
-    
     )
   }
 }
