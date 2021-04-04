@@ -90,7 +90,7 @@ class Register extends React.Component {
                 required
               />            
             </fieldset>
-            <Link to="/" style={{ textDecoration: 'none', color: 'var(--main-color)'}}><input class="button" type="submit" value="Create" onClick={this.handleSubmit}/></Link>
+            <Link to="/" style={{ textDecoration: 'none', color: 'var(--main-color)'}}><input class="button" type="submit" value="Create Account" onClick={this.handleSubmit}/></Link>
           </form>
           <Link class="register" to="/login" style={{ textDecoration: 'none', color: 'var(--main-color)', textAlign: 'center'}}>Already have an account? Click Here!</Link>
         </div>      
