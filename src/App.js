@@ -15,6 +15,8 @@ import Login from './pages/authentication/login/Login.js';
 import Register from './pages/authentication/registration/Registration.js';
 import FrameworkBuilder from './pages/framework-builder/FrameworkBuilder.js';
 import GuidelineBuilder from './pages/framework-builder/GuidelineBuilder.js';
+import FrameworkDetails from './pages/framework-details/FrameworkDetails.js';
+import Dashboard from './pages/dashboard/Dashboard.js';
 
 function App() {
   return ( 
@@ -35,9 +37,17 @@ function App() {
           <Route path="/register">
             <Register />
           </Route>
-          <Route path="/">
-            <Homepage boxes = {["Intro text", "featured accreditations", "Curricular Coffee featured in Forbes top 10 new startups"]}/>
+          <Route path = "/admindashboard/frameworkdetails">
+             <FrameworkDetails /> 
+          </Route> 
+          <Route path = "/admindashboard">
+             <Dashboard /> 
           </Route>
+          <Route path="/">
+            <FrameworkDetails />
+             {/* <Homepage boxes = {["Intro text", "featured accreditations", "Curricular Coffee featured in Forbes top 10 new startups"]}/>  */}
+          </Route>
+          
         </Switch>
       </div>
     </Router>

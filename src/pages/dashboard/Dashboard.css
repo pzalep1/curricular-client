@@ -1,0 +1,137 @@
+
+body {
+    background-color: var(--alt-color-mute) !important;
+}
+
+#adminDashboard {
+  display: grid;
+  grid-template-columns: 0.75fr 1fr 1fr 1fr;
+  grid-template-rows: 0.2fr 1fr 1fr ;
+  gap: 0.5rem;
+  grid-template-areas:
+    "fTitle bar bar bar"
+    "filters results results results"
+    "filters results results results";
+    margin: 0 auto;
+    max-width: 90%;
+    padding: 3rem;
+    height: 1000px;
+}
+
+
+
+.fTitle { 
+    grid-area: fTitle; 
+    background-color: var(--main-color);
+    color: white;
+    text-align: center;
+    font-size: 2rem;
+    border-radius: 15px;
+}
+
+.fTitle > h2 {
+    font-weight: normal;
+    padding: 0;
+    margin: 0.6rem auto 0 auto;
+}
+
+.filters { 
+    border-radius: 10px;
+    grid-area: filters; 
+    background-color: #FFF;
+}
+
+#filterForm {
+    max-width: 100%;
+    margin: 1rem auto 0 auto;
+}
+
+.filterSelect {
+    margin: 0.5rem;
+    font-size: 1.5rem;
+    width: 75%;
+    border-radius: 10px;
+}
+
+.filterLabel {
+    font-size: 1.5rem;
+    margin: 0.5rem;
+}
+
+.bar { 
+    grid-area: bar; 
+    background-color: var(--main-color);
+    padding: 0.5rem;
+    border-radius: 15px;
+}
+
+#searchBarForm {
+    margin: 0.5rem auto 0 auto;
+}
+
+#searchBarForm > label {
+    font-size: 2.5rem;
+    color: white;
+    font-weight: normal;
+    margin: 0 0.5rem;
+}
+
+#searchBar {
+    border-radius: 10px;
+    font-size: 2rem;
+    max-width: 50%;
+}
+
+#searchButton {
+    font-size: 1.5rem;
+    border-radius: 10px;
+    margin: 0 0.5rem;
+    background-color: rgba(199,167,153,255);
+}
+
+#filterBar {
+    margin-left: 0.5rem;
+    display:inline !important;
+    font-size: 2rem;
+    border-radius: 10px;
+}
+
+.results { 
+    border-radius: 10px;
+    grid-area: results; 
+    background-color: #FFF;
+    width: 100%;
+    padding: 2rem;
+}
+
+.tableHeader {
+    font-size: 2rem;
+    color: var(--main-color);
+    font-weight: bold;
+}
+
+table {
+    border-collapse: separate !important;
+    border-spacing: 1rem;
+}
+
+.resultsRow {
+    font-size: 1.5rem;
+    border: 2px solid var(--main-color-mute) !important;;
+    margin: 0.5rem;
+}
+
+
+td {
+    padding: 0.25rem;
+    width: 25%;
+}
+
+.viewLink {
+    color:#FFF;
+    text-decoration: none;
+    padding: 0.5rem;
+    border-radius: 10px;
+    background-color: var(--main-color);
+}
+
