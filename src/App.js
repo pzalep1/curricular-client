@@ -1,57 +1,57 @@
-import logo from './logo.svg';
-import './App.css';
 import React from 'react';
+import './App.css';
+
 import {
   BrowserRouter as Router,
   Switch,
-  Route,
-  Link
+  Route
 } from 'react-router-dom';
-import ReactDOM from 'react-dom';
-import Header from './shared/header/Header.js';
-import Footer from './shared/footer/Footer.js';
-import Homepage from './pages/homepage/Homepage.js';
-import Login from './pages/authentication/login/Login.js';
-import Register from './pages/authentication/registration/Registration.js';
-import FrameworkBuilder from './pages/framework-builder/FrameworkBuilder.js';
-import GuidelineBuilder from './pages/framework-builder/GuidelineBuilder.js';
-import FrameworkDetails from './pages/framework-details/FrameworkDetails.js';
-import Dashboard from './pages/dashboard/Dashboard.js';
+
+//Pages
+import Home from './pages/Home';
+import Browse from './pages/Browse';
+import AdminDashboard from './pages/AdminDashboard';
+import Guideline from './pages/Guideline';
+import UserDashboard from './pages/UserDashboard';
+
+//Auth components
+import useToken from './components/useToken';
+import Authentication from './components/Authentication';
+
+
+
 
 function App() {
-  return ( 
+  
+  const {access_token, setToken} = useToken(); 
+  
+  if(!access_token) {
+    return <Router><Authentication setToken={setToken}/></Router>
+  }
+
+  return ([
     <Router>
-      <div>
-        {/* A <Switch> looks through its children <Route>s and
-            renders the first one that matches the current URL. */}
+      <div className="body-wrapper">
         <Switch>
-          <Route path="/frameworkbuilder/guidelines">
-            <GuidelineBuilder/>
+          <Route path="/framework/guidelines">
+            <Guideline/>
           </Route>
-          <Route path="/frameworkbuilder">
-            <FrameworkBuilder/>
-          </Route>         
-          <Route path="/login">
-            <Login />
+          <Route path="/admin/dashboard">
+            <AdminDashboard/>
           </Route>
-          <Route path="/register">
-            <Register />
+          <Route path="/dashboard">
+            <UserDashboard/>
           </Route>
-          <Route path = "/admindashboard/frameworkdetails">
-             <FrameworkDetails /> 
-          </Route> 
-          <Route path = "/admindashboard">
-             <Dashboard /> 
+          <Route path="/browse">
+            <Browse/>
           </Route>
           <Route path="/">
-            <FrameworkDetails />
-             {/* <Homepage boxes = {["Intro text", "featured accreditations", "Curricular Coffee featured in Forbes top 10 new startups"]}/>  */}
+            <Home/>
           </Route>
-          
         </Switch>
       </div>
     </Router>
-  )
+  ]);
 }
 
 export default App;

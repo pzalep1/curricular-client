@@ -1,0 +1,14 @@
+
+  footer > ul, li {
+    font-weight: normal;
+    font-size: 20px;
+    display: inline;
+    margin: 20px;
+  }
+  .footerlink {
+    color: white;
+    text-decoration:none;
+  }
+  .footerlink:hover {
+    font-weight: 600;
+  }

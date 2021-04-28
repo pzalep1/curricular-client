@@ -1,0 +1,37 @@
+
+.admin-dashboard {
+    display: flex;
+    height: 100%;
+}
+
+.admin-sidebar {
+    height: 100%;
+    width: 160px;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    background-color: var(--main-color);
+    padding-top: 20px;
+    border-top-right-radius: 2px;
+}
+
+.sidebar {
+    color: white;
+    padding-left: 5px;
+    font-weight: bold;
+    font-size: x-large;
+}
+
+.admin-frameworks {
+    padding-left: 190px;
+    display: block;
+}
+
+.admin-framework_title {
+    /*The grid on frameworks list centers this h1 tag; 
+    the padding pushes the title to the left until the 
+    the .admin-frameworks padding is hit
+    */
+    padding-right: 800px;
+    color: var(--main-color)
+}

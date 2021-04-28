@@ -1,0 +1,106 @@
+.guidelines-wrapper {
+    max-width: 100%;
+    padding: 50px;
+    min-height: 400px;
+}
+
+.guidelines-header-wrapper {
+    width: 100%;
+}
+
+.guidelines-header {
+    text-align: center;
+}
+
+.guidelines-header > .titleLabel{
+    color: #FFFFFF;
+    font-size: 18pt;
+    padding: 5px;
+    background-color: var(--main-color);
+    margin-right: 0.5rem;
+    border-radius: 3px;
+}
+
+.guidelineArea {
+    margin: 1rem auto;
+    width: 95%;
+    display: grid;
+    grid-template-rows: 1fr;
+    grid-template-columns: 1fr 5fr;
+}
+.guidelineList > li {
+    display: block;
+    color: white;
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+    padding-left: 0.25rem
+}
+
+.frameworkTitle {
+    font-weight: bold;
+    font-size: 18pt;
+    padding: 5px 10px;
+    margin-right: 0.5rem;
+}
+
+.selectedGuideline {
+    background-color: var(--main-color);
+    border-radius: 5px 0 0 5px;
+    margin-right: 0;
+}
+
+.notGuideline {
+    border-radius: 5px 0 0 5px;
+    margin-right: 0;
+    background-color: var(--main-color-mute);
+}
+
+.guidelineEdit {
+    border-radius:10px;
+    background-color: var(--alt-color-mute);
+    padding: 1rem 2rem;
+}
+
+.glSectionLabel {
+    color: white;
+    font-weight: bold;
+    font-size: 18pt;
+}
+
+#guidelineName {
+    border-radius: 3px;
+    font-size: 14pt;
+    width: 100%;
+    height: 2rem;
+}
+
+#guidelineContents {
+    border-radius: 3px;
+    width: 100%;
+    min-height: 100px;
+    font-size: 12pt;
+}
+
+.glSubmitArea {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.guidelineButton {
+    float:right;
+    padding: 5px;
+    color: #FFFFFF;
+    font-size: 18pt;
+    border: none;
+    border-radius: 5px;
+    background-color: var(--main-color);
+    
+}
+
+.submit-guidelineButton {
+    text-decoration: none;
+    color: white;
+    font-size: 18pt;
+}

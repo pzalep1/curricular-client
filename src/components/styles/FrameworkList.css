@@ -1,0 +1,21 @@
+.framework-header {
+    padding: 10px;
+    display: grid;
+    grid-template-columns: 300px 100px 300px 300px;
+    grid-gap: 20px;
+}
+
+span {
+    align-self: center;
+    color: var(--main-color)
+}
+
+.framework-list {
+    padding: 10px;
+    display: grid;
+    grid-template-columns: 315px 120px 320px 150px 150px;
+    border-style: solid;
+    border-radius: 3px;
+    border-color: var(--main-color-mute);
+    border-width: thin;
+}

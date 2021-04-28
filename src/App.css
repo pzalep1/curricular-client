@@ -3,14 +3,27 @@ html * {
   font-family: 'Varela' !important;
 }
 
+.body-wrapper {
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
+
+.footer-wrapper {
+  background-color: var(--main-color);
+  color: white;
+  display: flex;
+  justify-content: center;
+  position: bottom;
+  bottom:0;
+  width:100%;
+}
+
 :root {
   --main-color: #4B7C9B; 
   --main-color-mute: rgb(75, 124, 155, 0.5);
   --alt-color: rgb(145, 81, 53, 1);
   --alt-color-mute: rgb(145, 81, 53, 0.5);
+  --grey-scale-light: #D8D8D8;
 }
 /* End global styles  */
-
-
-
-
