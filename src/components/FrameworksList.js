@@ -1,13 +1,15 @@
 import React from 'react';
 import './styles/FrameworkList.css';
-
+import {Link} from 'react-router-dom';
+import GuidelinesPopup from './GuidelinesPopup';
 export default class FrameworkList extends React.Component {
 
     constructor(props) {
         super(props);
         this.state={
             frameworks:[],
-            count: 0
+            count: 0,
+            show: false
         }
     }
 
@@ -23,6 +25,10 @@ export default class FrameworkList extends React.Component {
                 this.setState({count: data.length})
             })
             .catch(error => console.log(error));
+    }
+
+    toggleClick = () => {
+        this.setState({show: !this.state.show});
     }
 
     render() {
@@ -41,7 +47,12 @@ export default class FrameworkList extends React.Component {
                     <div>
                         {this.state.frameworks.map(framework => (
                             <div key={framework._id} className="framework-list">
-                                <span>{framework.name}</span><span>{framework.year}</span><span>{framework.author}</span><span>{framework.levels}</span><button className="dashboard-guideline-button">Guidelines</button>
+                                <span>{framework.name}</span>
+                                <span>{framework.year}</span>
+                                <span>{framework.author}</span>
+                                <span>{framework.levels}</span>
+                                <button className="view-guidelinesbttn" onClick={this.toggleClick}>View Guidelines</button>
+                                {this.state.show ? <GuidelinesPopup toggle={this.toggleClick} /> : null}
                             </div> ))}
                     </div>
                 </div>
@@ -50,3 +61,21 @@ export default class FrameworkList extends React.Component {
     }
     
 }
+
+/*
+<button className="dashboard-guideline-button">
+                                    <Link className = "viewLink" to = {{
+                                        pathname: "/admindashboard/frameworkdetails",
+                                        state: {
+                                            frameworkName: framework.name,
+                                            author: framework.author,
+                                            year: framework.year,
+                                            level: framework.levels,
+                                            guidellines: framework.guidelines
+                                        }
+                                        }}
+                                     role = "button" >
+                                         View Guidelines
+                                    </Link>
+                                </button>
+*/

@@ -18,7 +18,7 @@ async function createFramework(framework) {
 
 function createYearList() {
     let vals = [];
-    [...Array(36).keys()].map((y) => vals.push(<option value = {1995+y}>{1995+y}</option>));
+    [...Array(36).keys()].map((y) => vals.push(<option value = {1998+y}>{1998+y}</option>));
     return vals;
 }
 
@@ -37,14 +37,14 @@ export default function Home() {
     let [url, setURL] = useState();
 
     async function handleSubmit(event) {
-        event.preventDefault();
-        let newFramework = await createFramework({
+        //event.preventDefault();
+        url = await createFramework({
             name,
             year,
             levels,
             author
         });
-        setURL(newFramework);
+        setURL(url);
     }
 
     return (
@@ -68,7 +68,7 @@ export default function Home() {
                             <select className="selectInput" onChange = {e => handleLevel(e.target.value)}id = "levelSelect">{createLevelList()}</select>
                         </div>
                         <div className="create-button-wrapper">
-                            <button className="create-framework-button" onClick={handleSubmit}>CREATE FRAMEWORK</button>
+                            <button> <Link className="create-framework-button" async to={`/framework/${url}/guidelines`} onClick={handleSubmit}>CREATE FRAMEWORK</Link></button>
                         </div>
                     </form>
                 </div>

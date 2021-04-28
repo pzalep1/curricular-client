@@ -33,18 +33,10 @@ function App() {
     <Router>
       <div className="body-wrapper">
         <Switch>
-          <Route path="/framework/guidelines">
-            <Guideline/>
-          </Route>
-          <Route path="/admin/dashboard">
-            <AdminDashboard/>
-          </Route>
-          <Route path="/dashboard">
-            <UserDashboard/>
-          </Route>
-          <Route path="/browse">
-            <Browse/>
-          </Route>
+          <Route path="/framework/:frameworkId/guidelines" component={Guideline}/>
+          <Route path="/admin/dashboard" component={AdminDashboard}/>
+          <Route path="/dashboard" component={UserDashboard}/>
+          <Route path="/browse" component={Browse}/>
           <Route path="/">
             <Home/>
           </Route>

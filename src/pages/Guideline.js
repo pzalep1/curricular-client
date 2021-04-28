@@ -1,6 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import './styles/Guidelines.css';
+import { useParams } from "react-router-dom";
 class GuidelineBuilder extends React.Component {
 
     constructor(props) {
@@ -16,7 +17,7 @@ class GuidelineBuilder extends React.Component {
                 "selected": true,
                 "name": "New Guideline",
                 "content": "Insert Content for Guideline here"
-            }]
+            }],
         };
 
         this.handleGuidelineNameChange = this.handleGuidelineNameChange.bind(this);
@@ -29,6 +30,7 @@ class GuidelineBuilder extends React.Component {
 
     componentDidMount() {
         this.state.guidelines[0].id = Math.random().toString(36).substring(7);
+        console.log(this.props);
     }
 
     getSelected(findId) {
@@ -116,7 +118,9 @@ class GuidelineBuilder extends React.Component {
     }
 
  
+    async createGuidelines(guidelines) {
 
+    }
 
     handleSubmit(e) {
         //e.preventDefault();
@@ -124,7 +128,7 @@ class GuidelineBuilder extends React.Component {
         let copyState = {frameworkName: this.state.frameworkName,author: this.state.author,level: this.state.level,year: this.state.year,guidelines: this.state.guidelines};
         copyState.guidelines = copyState.guidelines.map(({id, selected, ...rest}) => rest);
         console.log(copyState);
-        //FrameworkService.createGuidelines(this.state.guidelines);
+        this.createGuidelines(this.state.guidelines);
         // alert("New framework added");
 
     }
@@ -135,12 +139,12 @@ class GuidelineBuilder extends React.Component {
                 <form onSubmit = {this.handleSubmit}>
                     <div className="guidelines-header-wrapper">
                         <div className="guidelines-header">   
-                            <span class = "titleLabel">Framework Name</span>
-                            <span class = "frameworkTitle">{this.state.frameworkName}</span>
-                            <span class = "titleLabel">Year</span>
-                            <span class = "frameworkTitle">{this.state.year}</span>
-                            <span class = "titleLabel">Level</span>
-                            <span class = "frameworkTitle" >{this.state.level}</span>
+                            <span className= "titleLabel">Framework Name</span>
+                            <span className= "frameworkTitle">{this.state.frameworkName}</span>
+                            <span className= "titleLabel">Year</span>
+                            <span className= "frameworkTitle">{this.state.year}</span>
+                            <span className= "titleLabel">Level</span>
+                            <span className= "frameworkTitle" >{this.state.level}</span>
                         </div>
                     </div>
                     <div className="guidelineArea">
