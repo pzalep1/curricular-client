@@ -1,18 +1,18 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
+import {Link, useParams} from 'react-router-dom';
 import './styles/Guidelines.css';
-import { useParams } from "react-router-dom";
 class GuidelineBuilder extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {};
         this.state = {
-            "frameworkName": "New Framework Name that is really long just to test css",
-            "author": "60660ee951c6bd1b3265c10c",
-            "year": "2021",
-            "level": "K-12",
-            "guidelines": [{
+            _id: this.props.match.params.frameworkId,
+            frameworkName: "",
+            author: "",
+            year: "",
+            level: [],
+            guidelines: [{
                 "id": "",
                 "selected": true,
                 "name": "New Guideline",
@@ -30,7 +30,28 @@ class GuidelineBuilder extends React.Component {
 
     componentDidMount() {
         this.state.guidelines[0].id = Math.random().toString(36).substring(7);
-        console.log(this.props);
+        this.getFramework();
+    }
+
+    async getFramework() {
+        let framework = await this.retrieveFramework(this.state._id);
+        this.setState({frameworkName: framework.name});
+        this.setState({author: framework.author});
+        this.setState({year: framework.year});
+        this.setState({level: framework.levels});
+        console.log(framework);
+    }
+
+    async retrieveFramework(frameworkId) {
+        return fetch(process.env.REACT_APP_API_URL+'/frameworks/'+frameworkId, {
+            method: 'GET',
+            headers: {
+                'Access-Control-Allow-Origin': '*',
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            }
+        })
+            .then(res => res.json())
     }
 
     getSelected(findId) {
@@ -119,7 +140,7 @@ class GuidelineBuilder extends React.Component {
 
  
     async createGuidelines(guidelines) {
-
+        //return fetch(process.env.REACT_APP_API_URL+(this.props._id)+'/guidelines')
     }
 
     handleSubmit(e) {
@@ -150,7 +171,7 @@ class GuidelineBuilder extends React.Component {
                     <div className="guidelineArea">
                         <div className="guidelines">
                             <ul className="guidelineList">
-                                {this.state.guidelines.map(gl => <li key = {gl.id} onClick = {this.selectGuideline} className = {gl.selected ? "selectedGuideline" : "notGuideline"}>{gl.name}</li>)} 
+                                {this.state.guidelines.map(gl => <li key = {gl.id} id={gl.id} onClick = {this.selectGuideline} className = {gl.selected ? "selectedGuideline" : "notGuideline"}>{gl.name}</li>)} 
                              </ul>
                             <button type = "button" onClick = {() => this.addGuideline()} className = "guidelineButton" id = "addGuideline">+ Add Guideline</button>
                         </div>

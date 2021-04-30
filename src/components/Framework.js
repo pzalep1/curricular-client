@@ -1,5 +1,6 @@
 import React, {useState}from "react";
-import {Link} from 'react-router-dom';
+import { browserHistory } from 'react-dom';
+import {Link, Redirect} from 'react-router-dom';
 import './styles/Framework.css';
 
 async function createFramework(framework) {
@@ -24,11 +25,11 @@ function createYearList() {
 
 function createLevelList() {
     let vals = [];
-    ["K-12", "Collegiate", "Postgraduate", "Professional"].map(o => vals.push(<option value = {o}>{o}</option>));
+    ["K12", "Collegiate", "Postgraduate", "Professional"].map(o => vals.push(<option value = {o}>{o}</option>));
     return vals;
 }
 
-export default function Home() {
+export default function Framework() {
 
     let [name, handleName] = useState();
     let [author, handleAuthor] = useState();
@@ -37,7 +38,7 @@ export default function Home() {
     let [url, setURL] = useState();
 
     async function handleSubmit(event) {
-        //event.preventDefault();
+        event.preventDefault();
         url = await createFramework({
             name,
             year,
@@ -45,6 +46,10 @@ export default function Home() {
             author
         });
         setURL(url);
+    }
+
+    if (url) {
+        return <Redirect to={'framework/'+url+'/guidelines'}/>
     }
 
     return (
@@ -68,7 +73,7 @@ export default function Home() {
                             <select className="selectInput" onChange = {e => handleLevel(e.target.value)}id = "levelSelect">{createLevelList()}</select>
                         </div>
                         <div className="create-button-wrapper">
-                            <button> <Link className="create-framework-button" async to={`/framework/${url}/guidelines`} onClick={handleSubmit}>CREATE FRAMEWORK</Link></button>
+                            <button className="create-framework-button" onClick={handleSubmit}>CREATE FRAMEWORK</button>
                         </div>
                     </form>
                 </div>

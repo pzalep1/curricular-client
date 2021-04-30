@@ -4,7 +4,6 @@ html * {
 }
 
 .body-wrapper {
-  position: relative;
   height: 100%;
   width: 100%;
 }
@@ -14,7 +13,6 @@ html * {
   color: white;
   display: flex;
   justify-content: center;
-  position: bottom;
   bottom:0;
   width:100%;
 }

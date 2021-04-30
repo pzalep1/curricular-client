@@ -6,3 +6,7 @@
     padding: 10px;
     align-content: center;
 }
+
+.guidelineList {
+    max-width: 200px;
+}

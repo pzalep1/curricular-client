@@ -14,30 +14,17 @@ import AdminDashboard from './pages/AdminDashboard';
 import Guideline from './pages/Guideline';
 import UserDashboard from './pages/UserDashboard';
 
-//Auth components
-import useToken from './components/useToken';
-import Authentication from './components/Authentication';
-
-
-
-
 function App() {
   
-  const {access_token, setToken} = useToken(); 
-  
-  if(!access_token) {
-    return <Router><Authentication setToken={setToken}/></Router>
-  }
-
   return ([
     <Router>
       <div className="body-wrapper">
         <Switch>
-          <Route path="/framework/:frameworkId/guidelines" component={Guideline}/>
-          <Route path="/admin/dashboard" component={AdminDashboard}/>
-          <Route path="/dashboard" component={UserDashboard}/>
-          <Route path="/browse" component={Browse}/>
-          <Route path="/">
+          <Route exact path="/framework/:frameworkId/guidelines" component={Guideline}/>
+          <Route exact path="/admin/dashboard" component={AdminDashboard}/>
+          <Route exact path="/dashboard" component={UserDashboard}/>
+          <Route exact path="/browse" component={Browse}/>
+          <Route exact path="/">
             <Home/>
           </Route>
         </Switch>
