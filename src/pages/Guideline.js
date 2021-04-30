@@ -13,7 +13,7 @@ class GuidelineBuilder extends React.Component {
             year: "",
             level: [],
             guidelines: [{
-                "id": "",
+                "id": `${Math.random().toString(36).substring(7)}`,
                 "selected": true,
                 "name": "New Guideline",
                 "content": "Insert Content for Guideline here"
