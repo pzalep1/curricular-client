@@ -30,6 +30,7 @@ class Browse extends React.Component {
             .then(res => res.json())
             .then(data => {
                 this.setState({frameworks: data})
+                this.setState({filterFrameworks: data});
                 this.setState({count: data.length})
                 // let editFworks = [...this.state.frameworks];
                 // editFworks.forEach(function(e) {
@@ -61,15 +62,16 @@ class Browse extends React.Component {
     filterByYear(e) {
         let filt = [...this.state.filterFrameworks];
         let newFilt = []; 
-        for (let j = 0; j < filt.length; j++) {
-            console.log(filt[j].year);
-        }
-        console.log(e.target.value);
         filt.map(f => {f.year == e.target.value && newFilt.push(f)});
         newFilt.length != 0 && this.setState({filterFrameworks: newFilt});
     }
 
+    generalFilter(e) {
+
+    }
+
     filterByAuthor(e) {
+        
         let filt = [...this.state.filterFrameworks];
         let newFilt = []; 
         e.target.value != " " && filt.map(f => {f.author[0].toUpperCase() == e.target.value && newFilt.push(f)});
@@ -94,19 +96,21 @@ class Browse extends React.Component {
                 case "Author":
                     tempFrames[a].author.toLowerCase().includes(e.target.value.toLowerCase()) && resFrames.push(tempFrames[a])
             }
+        } else {
+            resFrames = tempFrames;
         }
+        this.setState({search: e.target.value.toLowerCase()});
         this.setState({filterFrameworks: resFrames});
     }
 
     resetFilters(e) {
         e.preventDefault();
-        console.log("bruh12");
         this.optRef.current.value = " ";
         this.optRef2.current.value = " ";
         this.optRef3.current.value = 1995;
         this.searchRef.current.value = "";
         this.setState({search: ''});
-        this.setState({filterFrameworks: []});
+        this.setState({filterFrameworks: [...this.state.frameworks]});
     }
 
     render() {
