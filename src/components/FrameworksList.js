@@ -10,7 +10,8 @@ export default class FrameworkList extends React.Component {
             released: [],
             count: 0,
             releasedCount: 0,
-            show: false
+            show: false,
+            keys:[]
         }
     }
 
@@ -40,12 +41,22 @@ export default class FrameworkList extends React.Component {
         this.setState({show: !this.state.show});
     }
 
+    handleShow(framework) {
+        console.log(framework);
+        this.setState({showing: framework})
+        
+    }
+
+    setKey(framework) {
+        
+    }
+
     checkSearch(frameworkID) {
         console.log("checking search");
         if (typeof this.props.searchResults != "undefined") {
             let flag = false;
             for (let j = 0; j < this.props.searchResults.length; j++) {
-                if (this.props.searchResults[j]._id == frameworkID) {
+                if (this.props.searchResults[j]._id === frameworkID) {
                     flag = true;
                 }
             }
@@ -54,6 +65,7 @@ export default class FrameworkList extends React.Component {
             return true;
         }
     }
+
 
     render() {
         if (window.location.pathname === '/browse' || window.location.pathname === '/browse?') {
@@ -78,7 +90,7 @@ export default class FrameworkList extends React.Component {
                                 <span>{framework.author}</span>
                                 <span>{framework.levels}</span>
                                 <button className="view-guidelinesbttn" onClick={this.toggleClick}>View Guidelines</button>
-                                {this.state.show ? <GuidelinesPopup toggle={this.toggleClick} /> : null}
+                                {this.state.show ? <GuidelinesPopup toggle={this.toggleClick} framework={this.state.showing}/> : null}
                             </div> ))}
                     </div>
                 </div>
@@ -98,15 +110,15 @@ export default class FrameworkList extends React.Component {
                     </div>
                     <div className="frameworkList_list-wrapper">
                         <div>
-                            {this.state.frameworks.map(framework => (
-                                <div key={framework._id} className="framework-list" >
+                            {this.state.frameworks.map((framework )=> (
+                                <li key={framework._id} className="framework-list" >
                                     <span>{framework.name}</span>
                                     <span>{framework.year}</span>
                                     <span>{framework.author}</span>
                                     <span>{framework.levels}</span>
-                                    <button className="view-guidelinesbttn" onClick={this.toggleClick}>View Guidelines</button>
-                                    {this.state.show ? <GuidelinesPopup toggle={this.toggleClick} /> : null}
-                                </div> ))}
+                                    <button key={this.setKey(framework)} className="view-guidelinesbttn" onClick={this.toggleClick}>View Guidelines</button>
+                                    {this.state.show ? <GuidelinesPopup key={framework._id} toggle={this.toggleClick} framework={framework}/> : null}
+                                </li> ))}
                         </div>
                     </div>
                 </div>

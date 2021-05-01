@@ -13,7 +13,7 @@ export default class GuidelinesPopup extends Component {
             <span className="guidline-close" onClick={this.handleClick}>
             &times;
             </span>
-            <ViewGuidelines/>
+            <ViewGuidelines framework={this.props.framework}/>
         </div>
       </div>
     );

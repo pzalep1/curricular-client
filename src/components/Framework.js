@@ -1,6 +1,5 @@
 import React, {useState}from "react";
-import { browserHistory } from 'react-dom';
-import {Link, Redirect} from 'react-router-dom';
+import { Redirect}  from 'react-router-dom';
 import './styles/Framework.css';
 
 async function createFramework(framework) {

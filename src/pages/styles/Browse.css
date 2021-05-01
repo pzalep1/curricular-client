@@ -22,6 +22,7 @@ nav {
 .admin-framework_title {
     padding: 0 !important;
     text-align: left !important;
+    color: var(--main-color);
 }
 
 .filter-bar {

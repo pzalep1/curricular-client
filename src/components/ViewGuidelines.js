@@ -1,5 +1,4 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
 import './styles/GuidelinesList.css';
 
 export default class ViewGuidelines extends React.Component {
@@ -7,34 +6,37 @@ export default class ViewGuidelines extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            "frameworkName": "New Framework",
-            "author": "60660ee951c6bd1b3265c10c",
-            "year": "2021",
-            "level": "K-12",
+            "frameworkName": this.props.framework.name,
+            "year": this.props.framework.year,
+            "level": this.props.framework.levels,
             "guidelines": [{
                 "id": "",
                 "selected": true,
                 "name": "New Guideline",
-                "content": "Insert Content for Guideline here"
-            }, {
-                "id": "",
-                "selected": false,
-                "name": "new guideline 2",
-                "content": "content for guideline 2"
-            }]
+                "guidelineText":"text"}]
         }
         this.selectGuideline = this.selectGuideline.bind(this);
     }
 
     componentDidMount() {
-        console.log(this.props.location);
+        console.log("hit",this.props);
         this.state.guidelines[0].id = Math.random().toString(36).substring(7);
+        //this.getGuidelines();
     }
+
+    // async getGuidelines() {
+    //     fetch(process.env.REACT_APP_API_URL+'frameworks/'+this.props._id+'/guidelines')
+    //         .then(res => res.json())
+    //         .then(data => {
+    //             console.log(data)
+    //             this.setState({guidelines: data})
+    //         })
+    // }
 
     getSelected(findId) {
         let nameIndex = 0;
         for (let j = 0; j < this.state.guidelines.length; j++) {
-            if (this.state.guidelines[j].id == findId) {
+            if (this.state.guidelines[j].id === findId) {
                 nameIndex = j;
             }
         }  
@@ -43,7 +45,7 @@ export default class ViewGuidelines extends React.Component {
 
     selectedInputNumber() {
         for (let i = 0; i < this.state.guidelines.length; i++) {
-            if (this.state.guidelines[i].selected == true) {
+            if (this.state.guidelines[i].selected === true) {
                 return i;
             }
         }
@@ -57,7 +59,7 @@ export default class ViewGuidelines extends React.Component {
             this.setState(({guidelines}) => ({guidelines: temp}));
             let stateIndex = this.getSelected(event.target.id);
             let temp2 = [...this.state.guidelines];
-            for(let e=0;e<temp2.length;e++)e==stateIndex?temp2[e].selected=!0:temp2[e].selected=!1;
+            for(let e=0;e<temp2.length;e++)e===stateIndex?temp2[e].selected=!0:temp2[e].selected=!1;
             this.setState((guidelines) => ({guidelines: temp2}));
             event.target.classList.toggle("selectedGuideline");
         }
@@ -87,7 +89,7 @@ export default class ViewGuidelines extends React.Component {
                             <span className = "glSectionLabel" >Guideline Name</span><br />
                             <span id = "guidelineName">{this.state.guidelines[this.selectedInputNumber()].name}</span><br /><br />
                             <span className = "glSectionLabel" >Guideline Contents</span><br />
-                            <span id = "guidelineContents">{this.state.guidelines[this.selectedInputNumber()].content}</span><br /><br />
+                            <span id = "guidelineContents">{this.state.guidelines[this.selectedInputNumber()].guidelineText}</span><br /><br />
                     </div>
                 </div>
             </div>

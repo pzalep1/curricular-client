@@ -47,14 +47,14 @@ class Browse extends React.Component {
     filterByName(e) {
         let filt = [...this.state.filterFrameworks];
         let newFilt = [];
-        filt.map(f => {f.name[0].toUpperCase() == e.target.value && newFilt.push(f)});
+        filt.map(f => {f.name[0].toUpperCase() === e.target.value && newFilt.push(f)});
         this.setState({filterFrameworks: newFilt});
     }
 
     filterByLevel(e) {
         let filt = [...this.state.filterFrameworks];
         let newFilt = []; 
-        filt.map(f => {f.levels[0] == e.target.value && newFilt.push(f)});
+        filt.map(f => {f.levels[0] === e.target.value && newFilt.push(f)});
         this.setState({filterFrameworks: newFilt});
     }
 
@@ -65,14 +65,14 @@ class Browse extends React.Component {
             console.log(filt[j].year);
         }
         console.log(e.target.value);
-        filt.map(f => {f.year == e.target.value && newFilt.push(f)});
-        newFilt.length != 0 && this.setState({filterFrameworks: newFilt});
+        filt.map(f => {f.year === e.target.value && newFilt.push(f)});
+        newFilt.length !== 0 && this.setState({filterFrameworks: newFilt});
     }
 
     filterByAuthor(e) {
         let filt = [...this.state.filterFrameworks];
         let newFilt = []; 
-        e.target.value != " " && filt.map(f => {f.author[0].toUpperCase() == e.target.value && newFilt.push(f)});
+        e.target.value !== " " && filt.map(f => {f.author[0].toUpperCase() === e.target.value && newFilt.push(f)});
         this.setState({filterFrameworks: newFilt});      
     }
 
@@ -80,7 +80,7 @@ class Browse extends React.Component {
         let tempFrames = [...this.state.frameworks];
         let resFrames = [];
         //search either by name, year, level, or author 
-        if (e.target.value != "") {
+        if (e.target.value !== "") {
             for (let a = 0; a < tempFrames.length; a++) switch ("Name") {
                 case "Name":
                     tempFrames[a].name.toLowerCase().includes(e.target.value.toLowerCase()) && resFrames.push(tempFrames[a]);

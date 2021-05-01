@@ -3,8 +3,7 @@ import './styles/Home.css';
 import {Link} from 'react-router-dom';
 import Header from'./../components/Header';
 import Footer from './../components/Footer';
-import settUser from '../components/settUser';
-import User from '../components/User';
+
 function handleChange() {
     console.log("handleChange not implemented!")
 }
@@ -15,17 +14,11 @@ function handleSubmit() {
 
 export default function Home() {
 
-    const {user, setUser} = settUser(); 
-
-    // if(!user) {
-    //     <User setUser={setUser}/>
-    // }
-
     return [
-        <div className="header-wrapper">
+        <div className="header-wrapper" key="header">
             <Header/> 
         </div>,
-        <div className="section-wrapper">
+        <div className="section-wrapper" key="homePage">
             <div className="splash-wrapper">
                 <h1>CURRICULAR SEARCHING MADE EASY</h1>
                 <form className="search" onSubmit={handleSubmit}>
@@ -55,7 +48,7 @@ export default function Home() {
                     search on the <Link className="info-browse" to="/browse">Browse Page</Link></p>
             </div>
         </div>,
-        <div className="footer-wrapper">
+        <div className="footer-wrapper" key="footer">
             <Footer/>
         </div>
     ]
