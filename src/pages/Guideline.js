@@ -12,11 +12,11 @@ class GuidelineBuilder extends React.Component {
             author: "",
             year: "",
             level: [],
-            guidelines: [{
+            "guideline": [{
                 "id": `${Math.random().toString(36).substring(7)}`,
                 "selected": true,
                 "name": "New Guideline",
-                "content": "Insert Content for Guideline here"
+                "guidelineText": "Insert Content for Guideline here"
             }],
         };
 
@@ -29,7 +29,7 @@ class GuidelineBuilder extends React.Component {
     }
 
     componentDidMount() {
-        this.state.guidelines[0].id = Math.random().toString(36).substring(7);
+        this.state.guideline[0].id = Math.random().toString(36).substring(7);
         this.getFramework();
     }
 
@@ -56,8 +56,8 @@ class GuidelineBuilder extends React.Component {
 
     getSelected(findId) {
         let nameIndex = 0;
-        for (let j = 0; j < this.state.guidelines.length; j++) {
-            if (this.state.guidelines[j].id == findId) {
+        for (let j = 0; j < this.state.guideline.length; j++) {
+            if (this.state.guideline[j].id == findId) {
                 nameIndex = j;
             }
         }  
@@ -65,8 +65,8 @@ class GuidelineBuilder extends React.Component {
     }
 
     selectedInputNumber() {
-        for (let i = 0; i < this.state.guidelines.length; i++) {
-            if (this.state.guidelines[i].selected == true) {
+        for (let i = 0; i < this.state.guideline.length; i++) {
+            if (this.state.guideline[i].selected == true) {
                 return i;
             }
         }
@@ -75,48 +75,48 @@ class GuidelineBuilder extends React.Component {
 
     //add guideline
     addGuideline() {
-        let newGuideline = {id: `${Math.random().toString(36).substring(7)}`,name: `New Guideline`, content: `Insert Content for Guideline Here`, selected: true};
+        let newGuideline = {id: `${Math.random().toString(36).substring(7)}`,name: `New Guideline`, guidelineText: `Insert Content for Guideline Here`, selected: true};
         //Create dummy state with new guideline, then add to current state
-        let temp = [...this.state.guidelines].map(item => {item.selected = false}).concat(newGuideline);
-        this.setState({guidelines: this.state.guidelines.concat(newGuideline)}, () => {});    
+        let temp = [...this.state.guideline].map(item => {item.selected = false}).concat(newGuideline);
+        this.setState({guideline: this.state.guideline.concat(newGuideline)}, () => {});    
     }
 
 
     //Toggle currently selected guideline 
     selectGuideline(event) {
         if (!event.target.classList.contains("selectedGuideline")) {
-            let temp = [...this.state.guidelines];
+            let temp = [...this.state.guideline];
             temp.forEach(element => {element.selected = false;});
-            this.setState(({guidelines}) => ({guidelines: temp}));
+            this.setState(({guideline}) => ({guideline: temp}));
             let stateIndex = this.getSelected(event.target.id);
-            let temp2 = [...this.state.guidelines];
+            let temp2 = [...this.state.guideline];
             for(let e=0;e<temp2.length;e++)e==stateIndex?temp2[e].selected=!0:temp2[e].selected=!1;
-            this.setState((guidelines) => ({guidelines: temp2}));
+            this.setState((guideline) => ({guideline: temp2}));
             event.target.classList.toggle("selectedGuideline");
         }
     }
 
     removeGuideline() {
-        if (this.state.guidelines.length > 1) {
+        if (this.state.guideline.length > 1) {
             //Case 1: removing first guideline -> move to second guideline
             if (this.selectedInputNumber() == 0) {
-                let temp = [...this.state.guidelines];
+                let temp = [...this.state.guideline];
                 temp[1].selected = true;
                 temp.shift();
-                this.setState((guidelines) => ({guidelines: temp}));    
+                this.setState((guideline) => ({guideline: temp}));    
             //Case 2: removing last guideline -> move to second last guideline
-            } else if (this.selectedInputNumber() == this.state.guidelines.length - 1) {
-                let temp = [...this.state.guidelines];
-                temp[this.state.guidelines.length - 2].selected = true;
+            } else if (this.selectedInputNumber() == this.state.guideline.length - 1) {
+                let temp = [...this.state.guideline];
+                temp[this.state.guideline.length - 2].selected = true;
                 temp.pop();
-                this.setState((guidelines) => ({guidelines: temp}));
+                this.setState((guideline) => ({guideline: temp}));
             //Case 3: removing middle guideline -> move to previous guideline
             } else {
-                let temp = [...this.state.guidelines];
+                let temp = [...this.state.guideline];
                 temp[this.selectedInputNumber() - 1].selected = true;
                 temp.splice(this.selectedInputNumber() + 1, 1);
                 console.log(temp);
-                this.setState((guidelines) => ({guidelines: temp}));
+                this.setState((guideline) => ({guideline: temp}));
             }
         } else {
             console.log("cant remove the last guideline");
@@ -126,31 +126,45 @@ class GuidelineBuilder extends React.Component {
 
     handleGuidelineNameChange(e) {
         let newName = e.target.value;
-        let temp = [...this.state.guidelines];
+        let temp = [...this.state.guideline];
         temp[this.selectedInputNumber()].name = newName;
-        this.setState((guidelines) => ({guidelines: temp}));
+        this.setState((guideline) => ({guideline: temp}));
     }
 
     handleGuidelineChange(e) {
         let newContent = e.target.value;
-        let temp = [...this.state.guidelines];
-        temp[this.selectedInputNumber()].content = newContent;
-        this.setState(() => ({guidelines: temp}));
+        let temp = [...this.state.guideline];
+        temp[this.selectedInputNumber()].guidelineText = newContent;
+        this.setState(() => ({guideline: temp}));
     }
 
  
-    async createGuidelines(guidelines) {
-        //return fetch(process.env.REACT_APP_API_URL+(this.props._id)+'/guidelines')
+    async createGuidelines(guideline) {
+        console.log(JSON.stringify({guideline}));
+        return fetch(process.env.REACT_APP_API_URL+'/frameworks/'+(this.state._id)+'/guidelines', {
+            method: 'POST',
+            headers: {
+                'Access-Control-Allow-Origin': '*',
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify({"guideline":guideline.guideline})
+        })
+            .then(res => res.json())
+            .then(data => data.response)
     }
 
     handleSubmit(e) {
         //e.preventDefault();
         //Copy state and remove the guideline id and selected attributes (these are not necessary for the backend)
-        let copyState = {frameworkName: this.state.frameworkName,author: this.state.author,level: this.state.level,year: this.state.year,guidelines: this.state.guidelines};
-        copyState.guidelines = copyState.guidelines.map(({id, selected, ...rest}) => rest);
+        let copyState = {guideline: this.state.guideline};
+        copyState.guideline = copyState.guideline.map(({id, selected, ...rest}) => rest);
         console.log(copyState);
-        this.createGuidelines(this.state.guidelines);
-        // alert("New framework added");
+        copyState.guideline.map(guideline => {
+            this.createGuidelines({
+                guideline
+            })
+        })
 
     }
 
@@ -171,15 +185,15 @@ class GuidelineBuilder extends React.Component {
                     <div className="guidelineArea">
                         <div className="guidelines">
                             <ul className="guidelineList">
-                                {this.state.guidelines.map(gl => <li key = {gl.id} id={gl.id} onClick = {this.selectGuideline} className = {gl.selected ? "selectedGuideline" : "notGuideline"}>{gl.name}</li>)} 
+                                {this.state.guideline.map(gl => <li key = {gl.id} id={gl.id} onClick = {this.selectGuideline} className = {gl.selected ? "selectedGuideline" : "notGuideline"}>{gl.name}</li>)} 
                              </ul>
                             <button type = "button" onClick = {() => this.addGuideline()} className = "guidelineButton" id = "addGuideline">+ Add Guideline</button>
                         </div>
                         <div className = "guidelineEdit">
                                 <label className = "glSectionLabel" htmlFor = "guidelineName">Guideline Name</label><br />
-                                <input value = {this.state.guidelines[this.selectedInputNumber()].name} onChange = {this.handleGuidelineNameChange} id = "guidelineName" type = "text"/><br /><br />
+                                <input value = {this.state.guideline[this.selectedInputNumber()].name} onChange = {this.handleGuidelineNameChange} id = "guidelineName" type = "text"/><br /><br />
                                 <label className = "glSectionLabel" htmlFor = "guidelineContents">Guideline Contents</label><br />
-                                <textarea value = {this.state.guidelines[this.selectedInputNumber()].content} onChange = {this.handleGuidelineChange} id = "guidelineContents" /><br /><br />
+                                <textarea value = {this.state.guideline[this.selectedInputNumber()].guidelineText} onChange = {this.handleGuidelineChange} id = "guidelineContents" /><br /><br />
                                 <button type = "button" onClick = {this.removeGuideline} id = "removeGuideline" className = "guidelineButton">Remove</button>
                         </div>
                     </div>
