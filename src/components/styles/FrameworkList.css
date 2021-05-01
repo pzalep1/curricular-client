@@ -19,3 +19,7 @@ span {
     border-color: var(--main-color-mute);
     border-width: thin;
 }
+
+.hidden-framework {
+    display:none;
+}

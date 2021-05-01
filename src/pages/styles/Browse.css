@@ -1,25 +1,41 @@
-.browse-page {
-    display: flex;
-    height: 100%;
+nav {
+    max-width: 1600px;
+    margin: 0 auto;
 }
+
+.browse-page {
+    max-width: 1600px;
+    display: grid;
+    grid-template-columns: 0.5fr 4fr;
+    margin: 0 auto;
+}
+
 .filter-title {
+    margin-top:70px;
+    padding: 5px 20px;
+    border-radius:10px;
     font-size: 24pt;
     border-style: solid;
     display: inline-block;
 }
 
+.admin-framework_title {
+    padding: 0 !important;
+    text-align: left !important;
+}
+
 .filter-bar {
+    border-radius: 10px 0 10px 10px;
     height: 100%;
     width: 225px;
-    position: absolute;
-    left: 0;
+    padding-bottom:50px;
     background-color: var(--main-color);
     align-content: center;
 }
 
 .browse-frameworks {
-    padding-top: 10px;
-    padding-left: 120px;
+    max-width: 80%;
+    padding: 50px;
     display: block;
 }
 
@@ -28,7 +44,6 @@
     color: white;
     text-align: center;
     font-size: 18pt;
-    position: fixed;
 }
 
 .filters { 
@@ -51,7 +66,6 @@
 }
 
 .browse-frameworks-list {
-    padding-left: 130px;
     background-color: white;
 }
 
@@ -59,7 +73,10 @@
     display: inline-block;
     align-items: left;
     background-color: var(--main-color);
-    padding: 10px 217px 10px 110px;
+    width: 100%;
+    padding: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
 }
 
 .browse-search {
