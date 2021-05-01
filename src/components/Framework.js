@@ -18,13 +18,14 @@ async function createFramework(framework) {
 
 function createYearList() {
     let vals = [];
+    vals.push(<option value = ""></option>);
     [...Array(36).keys()].map((y) => vals.push(<option value = {1998+y}>{1998+y}</option>));
     return vals;
 }
 
 function createLevelList() {
     let vals = [];
-    ["K12", "Collegiate", "Postgraduate", "Professional"].map(o => vals.push(<option value = {o}>{o}</option>));
+    [" ", "K12", "Collegiate", "Postgraduate", "Professional"].map(o => vals.push(<option value = {o}>{o}</option>));
     return vals;
 }
 
