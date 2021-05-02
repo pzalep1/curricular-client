@@ -30,7 +30,7 @@
     border-radius:10px;
     background-color: var(--alt-color-mute);
     padding: 1rem 2rem;
-    max-height: 35%;
+    height: 350px;
 }
 .guidelineArea2 {
     margin: 1rem auto;
