@@ -1,5 +1,5 @@
 import React from 'react';
-import {Link, useParams} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import './styles/Guidelines.css';
 class GuidelineBuilder extends React.Component {
 
@@ -57,7 +57,7 @@ class GuidelineBuilder extends React.Component {
     getSelected(findId) {
         let nameIndex = 0;
         for (let j = 0; j < this.state.guideline.length; j++) {
-            if (this.state.guideline[j].id == findId) {
+            if (this.state.guideline[j].id === findId) {
                 nameIndex = j;
             }
         }  
@@ -66,7 +66,7 @@ class GuidelineBuilder extends React.Component {
 
     selectedInputNumber() {
         for (let i = 0; i < this.state.guideline.length; i++) {
-            if (this.state.guideline[i].selected == true) {
+            if (this.state.guideline[i].selected === true) {
                 return i;
             }
         }
@@ -77,7 +77,7 @@ class GuidelineBuilder extends React.Component {
     addGuideline() {
         let newGuideline = {id: `${Math.random().toString(36).substring(7)}`,name: `New Guideline`, guidelineText: `Insert Content for Guideline Here`, selected: true};
         //Create dummy state with new guideline, then add to current state
-        let temp = [...this.state.guideline].map(item => {item.selected = false}).concat(newGuideline);
+        [...this.state.guideline].map(item => {item.selected = false}).concat(newGuideline);
         this.setState({guideline: this.state.guideline.concat(newGuideline)}, () => {});    
     }
 
@@ -90,7 +90,7 @@ class GuidelineBuilder extends React.Component {
             this.setState(({guideline}) => ({guideline: temp}));
             let stateIndex = this.getSelected(event.target.id);
             let temp2 = [...this.state.guideline];
-            for(let e=0;e<temp2.length;e++)e==stateIndex?temp2[e].selected=!0:temp2[e].selected=!1;
+            for(let e=0;e<temp2.length;e++)e===stateIndex?temp2[e].selected=!0:temp2[e].selected=!1;
             this.setState((guideline) => ({guideline: temp2}));
             event.target.classList.toggle("selectedGuideline");
         }
@@ -99,13 +99,13 @@ class GuidelineBuilder extends React.Component {
     removeGuideline() {
         if (this.state.guideline.length > 1) {
             //Case 1: removing first guideline -> move to second guideline
-            if (this.selectedInputNumber() == 0) {
+            if (this.selectedInputNumber() === 0) {
                 let temp = [...this.state.guideline];
                 temp[1].selected = true;
                 temp.shift();
                 this.setState((guideline) => ({guideline: temp}));    
             //Case 2: removing last guideline -> move to second last guideline
-            } else if (this.selectedInputNumber() == this.state.guideline.length - 1) {
+            } else if (this.selectedInputNumber() === this.state.guideline.length - 1) {
                 let temp = [...this.state.guideline];
                 temp[this.state.guideline.length - 2].selected = true;
                 temp.pop();
