@@ -103,8 +103,8 @@ export default class FrameworkList extends React.Component {
                                 <span>{framework.year}</span>
                                 <span>{framework.author}</span>
                                 <span>{framework.levels}</span>
-                                <button className="view-guidelinesbttn" onClick={() => this.toggleClick}>View Guidelines</button>
-                                {this.state.show ? <GuidelinesPopup toggle={this.toggleClick} framework={this.state.showing}/> : null}
+                                <button key={this.setKey(framework)} className="view-guidelinesbttn" onClick={() => this.isShowing(framework._id)}>View Guidelines</button>
+                                {<GuidelinesPopup show = {framework.showing} fid = {framework._id} key={framework._id} framework={framework} />}
                             </div> ))}
                     </div>
                 </div>

@@ -11,8 +11,11 @@ html * {
 .footer-wrapper {
   background-color: var(--main-color);
   color: white;
-  display: flex;
-  justify-content: center;
+  position: fixed;
+  text-align: center;
+  left: 0;
+  bottom: 0;
+  width: 100%;
   bottom:0;
   width:100%;
 }

@@ -1,5 +1,5 @@
 .guidelinesList-wrapper {
-    display: inline;
+    max-height: 100%;
 }
 
 .guidelinesList-header {
@@ -7,6 +7,36 @@
     align-content: center;
 }
 
-.guidelineList {
+.guidelineList2 {
     max-width: 200px;
+    overflow: scroll !important;
+    max-height: 35%;
+}
+
+.guidelineList2 > li {
+    display: block;
+    color: white;
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+    padding-left: 0.25rem;
+    word-wrap: break-word;
+}
+
+.guidelineList2 :hover {
+    cursor: pointer;
+}
+
+.guidelineEdit2 {
+    border-radius:10px;
+    background-color: var(--alt-color-mute);
+    padding: 1rem 2rem;
+    max-height: 35%;
+}
+.guidelineArea2 {
+    margin: 1rem auto;
+    width: 95%;
+    display: grid;
+    grid-template-rows: 1fr;
+    grid-template-columns: 1fr 5fr;
+    max-height: 50%;
 }

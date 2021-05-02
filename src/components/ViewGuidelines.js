@@ -19,19 +19,23 @@ export default class ViewGuidelines extends React.Component {
     }
 
     componentDidMount() {
-        console.log("hit",this.props);
+        console.log("hit there",);
         this.state.guidelines[0].id = Math.random().toString(36).substring(7);
-        //this.getGuidelines();
+        this.getGuidelines();
     }
 
-    // async getGuidelines() {
-    //     fetch(process.env.REACT_APP_API_URL+'frameworks/'+this.props._id+'/guidelines')
-    //         .then(res => res.json())
-    //         .then(data => {
-    //             console.log(data)
-    //             this.setState({guidelines: data})
-    //         })
-    // }
+    async getGuidelines() {
+        fetch(process.env.REACT_APP_API_URL+'/frameworks/'+this.props.framework._id+'/guidelines')
+            .then(res => res.json())
+            .then(data => {
+                console.log(data)
+                data.forEach(function (elem) {
+                    elem.selected = false;
+                    elem.id = Math.random().toString(36).substring(7);
+                })
+                this.setState({guidelines: this.state.guidelines.concat(data)})
+            })
+    }
 
     getSelected(findId) {
         let nameIndex = 0;
@@ -79,16 +83,16 @@ export default class ViewGuidelines extends React.Component {
                         <span className= "frameworkTitle" >{this.state.level}</span>
                     </div>
                 </div>
-                <div className="guidelineArea">
+                <div className="guidelineArea2">
                     <div className="guidelines">
-                        <ul className="guidelineList">
+                        <ul className="guidelineList2">
                             {this.state.guidelines.map(gl => <li id = {gl.id} onClick = {this.selectGuideline} className = {gl.selected ? "selectedGuideline" : "notGuideline"}>{gl.name}</li>)} 
                             </ul>
                     </div>
-                    <div className = "guidelineEdit">
+                    <div className = "guidelineEdit2">
                             <span className = "glSectionLabel" >Guideline Name</span><br />
                             <span id = "guidelineName">{this.state.guidelines[this.selectedInputNumber()].name}</span><br /><br />
-                            <span className = "glSectionLabel" >Guideline Contents</span><br />
+                            <span className = "glSectionLabel" >Guideline</span><br />
                             <span id = "guidelineContents">{this.state.guidelines[this.selectedInputNumber()].guidelineText}</span><br /><br />
                     </div>
                 </div>

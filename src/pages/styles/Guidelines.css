@@ -27,7 +27,14 @@
     display: grid;
     grid-template-rows: 1fr;
     grid-template-columns: 1fr 5fr;
+    overflow-y: hidden;
+    height: 350px
 }
+.guidelineList {
+    overflow-y: scroll !important;
+    height: 230px;
+}
+
 .guidelineList > li {
     display: block;
     color: white;
@@ -60,6 +67,7 @@
     border-radius:10px;
     background-color: var(--alt-color-mute);
     padding: 1rem 2rem;
+    max-height: 245px;
 }
 
 .glSectionLabel {
