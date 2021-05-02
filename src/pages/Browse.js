@@ -45,7 +45,12 @@ class Browse extends React.Component {
         if (this.state.search == '') {
             filt = [...this.state.frameworks];
         } else {
-            filt = [...this.state.filterFrameworks];
+            filt = [...this.state.frameworks];
+            let nf = [];
+            for (let a = 0; a < filt.length; a++) {
+                filt[a].name.toLowerCase().includes(this.state.search.toLowerCase()) && nf.push(filt[a]);
+            } 
+            filt = nf;
         }
         switch (e.target.id) {
             case "authorName":
@@ -114,19 +119,9 @@ class Browse extends React.Component {
         let resFrames = [];
         //search either by name, year, level, or author 
         if (e.target.value != "") {
-            for (let a = 0; a < tempFrames.length; a++) switch ("Name") {
-                case "Name":
-                    tempFrames[a].name.toLowerCase().includes(e.target.value.toLowerCase()) && resFrames.push(tempFrames[a]);
-                    break;
-                case "Year":
-                    tempFrames[a].year.toLowerCase().includes(e.target.value.toLowerCase()) && resFrames.push(tempFrames[a]);
-                    break;
-                case "Level":
-                    tempFrames[a].level.toLowerCase().includes(e.target.value.toLowerCase()) && resFrames.push(tempFrames[a]);
-                    break;
-                case "Author":
-                    tempFrames[a].author.toLowerCase().includes(e.target.value.toLowerCase()) && resFrames.push(tempFrames[a])
-            }
+            for (let a = 0; a < tempFrames.length; a++) {
+                tempFrames[a].name.toLowerCase().includes(e.target.value.toLowerCase()) && resFrames.push(tempFrames[a]);
+            } 
         } else {
             resFrames = tempFrames;
         }
@@ -138,10 +133,13 @@ class Browse extends React.Component {
         e.preventDefault();
         this.optRef.current.value = " ";
         this.optRef2.current.value = " ";
-        this.optRef3.current.value = 1995;
+        this.optRef3.current.value = "";
         this.searchRef.current.value = "";
-        this.setState({search: ''});
-        this.setState({filterFrameworks: [...this.state.frameworks]});
+        this.setState({filterFrameworks: [...this.state.frameworks],
+                        search: '',
+                        authorFilter: '',
+                        yearFilter: '',
+                        levelFilter: ''});
     }
 
     render() {
@@ -167,7 +165,8 @@ class Browse extends React.Component {
                         <label className = "filterLabel" htmlFor = "frameworkYear">Year</label>
                         <br />
                         <select ref = {this.optRef3} className = "filterSelect" id = "frameworkYear" onChange = {event => this.generalFilter(event)}>
-                            {[" "].concat([...Array(36).keys()]).map(y => <option value = {1995+y}>{1995+y}</option>)}
+                            <option value = ""></option>
+                            {[" "].concat([...Array(36).keys()]).map(y => <option value = {1998+y}>{1998+y}</option>)}
                         </select>
                         <button onClick = {this.resetFilters}>Reset Filters</button>
                         
