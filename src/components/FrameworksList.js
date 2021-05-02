@@ -13,6 +13,7 @@ export default class FrameworkList extends React.Component {
             show: false,
             keys:[]
         }
+        this.isShowing = this.isShowing.bind(this)
     }
 
     componentDidMount() {
@@ -39,26 +40,16 @@ export default class FrameworkList extends React.Component {
             })
             .catch(error => console.log(error));
     }
-
-    toggleClick = () => {
-        this.setState({show: !this.state.show});
-    }
-
-    handleShow(framework) {
-        // console.log(framework);
-        this.setState({showing: framework})
-        
-    }
+ 
 
     setKey(framework) {
         
     }
 
-    isShowing(fid) {
-        console.log("bruh");
+    isShowing(frameId) {
         let copyFrames = [...this.state.frameworks];
         for (let j = 0; j < copyFrames.length; j++) {
-            if (copyFrames[j]._id == fid) {
+            if (copyFrames[j]._id == frameId) {
                 copyFrames[j].showing = !copyFrames[j].showing;
             }
         }
@@ -67,7 +58,6 @@ export default class FrameworkList extends React.Component {
     }
 
     checkSearch(frameworkID) {
-        console.log("checking search");
         if (typeof this.props.searchResults != "undefined") {
             let flag = false;
             for (let j = 0; j < this.props.searchResults.length; j++) {
@@ -104,8 +94,8 @@ export default class FrameworkList extends React.Component {
                                 <span>{framework.year}</span>
                                 <span>{framework.author}</span>
                                 <span>{framework.levels}</span>
-                                <button className="view-guidelinesbttn" onClick={() => this.toggleClick}>View Guidelines</button>
-                                {this.state.show ? <GuidelinesPopup toggle={this.toggleClick} framework={this.state.showing}/> : null}
+                                <button key={this.setKey(framework)} className="view-guidelinesbttn" onClick={() => this.isShowing(framework._id)}>View Guidelines</button>
+                                {<GuidelinesPopup show = {framework.showing} fid = {framework._id} key={framework._id} framework={framework} toggle = {this.isShowing} />}
                             </div> ))}
                     </div>
                 </div>
@@ -132,7 +122,7 @@ export default class FrameworkList extends React.Component {
                                     <span>{framework.author}</span>
                                     <span>{framework.levels}</span>
                                     <button key={this.setKey(framework)} className="view-guidelinesbttn" onClick={() => this.isShowing(framework._id)}>View Guidelines</button>
-                                    {<GuidelinesPopup show = {framework.showing} fid = {framework._id} key={framework._id} framework={framework} />}
+                                    {<GuidelinesPopup show = {framework.showing} fid = {framework._id} key={framework._id} framework={framework} toggle = {this.isShowing} />}
                                 </li> ) 
                             )}
                         </div>
