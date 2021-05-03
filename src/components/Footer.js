@@ -8,9 +8,7 @@ class Footer extends React.Component {
         <div className="empty-container"></div>,
         <div className="footer">
           <ul>
-            <li><a className = "footerlink" target = "_blank" href = "">Terms of Use</a></li>
-            <li><a className = "footerlink" target = "_blank" href = "">Accessibility</a></li>
-            <li><Link className = "footerlink" to="/browse">Meet the Team</Link></li>
+            <li><a className = "footerlink" target="http://34.193.243.127:3000/api" href = "http://34.193.243.127:3000/api">Coffee-Service API</a></li>
           </ul>
         </div>
       ]      
