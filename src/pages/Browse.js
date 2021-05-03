@@ -12,7 +12,8 @@ class Browse extends React.Component {
             levelFilter: '',
             yearFilter: '',
             filterFrameworks: [],
-            frameworks: []
+            frameworks: [],
+            orgs: []
         }
         this.optRef = React.createRef();
         this.optRef2 = React.createRef();
@@ -29,7 +30,12 @@ class Browse extends React.Component {
         fetch(process.env.REACT_APP_API_URL+'/frameworks')
             .then(res => res.json())
             .then(data => {
-                this.setState({frameworks: data})
+                this.setState({frameworks: data}, () => {
+                    let temp = [];
+                    let copyFrames = [...this.state.frameworks];
+                    copyFrames.map(framework => temp.push(framework.author));
+                    this.setState({orgs: temp});
+                })
                 this.setState({filterFrameworks: data});
                 this.setState({count: data.length})
             })
@@ -39,6 +45,7 @@ class Browse extends React.Component {
     handleChange() {
         console.log("method not implemented");
     }
+
 
     generalFilter(e) {
         let filt = [];
@@ -54,64 +61,75 @@ class Browse extends React.Component {
         }
         switch (e.target.id) {
             case "authorName":
-                let newFilt1 = [];
-                if (this.state.levelFilter != '') {
-                    filt.map(f => {f.levels[0] == this.state.levelFilter && newFilt1.push(f)});
+                if (e.target.value == '' && this.state.levelFilter == '' && this.state.yearFilter == '') {
+                    this.setState({filterFrameworks: filt});
                 } else {
-                    newFilt1 = filt;
+                    let newFilt1 = [];
+                    if (this.state.levelFilter != '') {
+                        filt.map(f => {f.levels[0] == this.state.levelFilter && newFilt1.push(f)});
+                    } else {
+                        newFilt1 = filt;
+                    }
+                    let newFilt2 = [];
+                    if (this.state.yearFilter != '') {
+                        newFilt1.map(f => {f.year == this.state.yearFilter && newFilt2.push(f)});
+                    } else {
+                        newFilt2 = newFilt1;
+                    }
+                    let newFilt3 = [];
+                    this.setState({authorFilter: e.target.value}, () => {
+                        newFilt2.map(f => {f.author == this.state.authorFilter && newFilt3.push(f)});
+                        this.setState({filterFrameworks: newFilt3});  
+                    });
                 }
-                let newFilt2 = [];
-                if (this.state.yearFilter != '') {
-                    newFilt1.map(f => {f.year == this.state.yearFilter && newFilt2.push(f)});
-                } else {
-                    newFilt2 = newFilt1;
-                }
-                let newFilt3 = [];
-                this.setState({authorFilter: e.target.value}, () => {
-                    newFilt2.map(f => {f.author[0].toUpperCase() == this.state.authorFilter && newFilt3.push(f)});
-                    this.setState({filterFrameworks: newFilt3});  
-                });
                 break;
             case "edLevel":
-                let newFilt11 = [];
-                if (this.state.authorFilter != '') {
-                    filt.map(f => {f.author[0].toUpperCase() == this.state.authorFilter && newFilt11.push(f)});
+                if (e.target.value == '' && this.state.authorFilter == '' && this.state.yearFilter == '') { 
+                    this.setState({filterFrameworks: filt});
                 } else {
-                    newFilt11 = filt;
+                    let newFilt11 = [];
+                    if (this.state.authorFilter != '') {
+                        filt.map(f => {f.author == this.state.authorFilter && newFilt11.push(f)});
+                    } else {
+                        newFilt11 = filt;
+                    }
+                    let newFilt22 = [];
+                    if (this.state.yearFilter != '') {
+                        newFilt11.map(f => {f.year == this.state.yearFilter && newFilt22.push(f)});
+                    } else {
+                        newFilt22 = newFilt11;
+                    }
+                    let newFilt33 = [];
+                    this.setState({levelFilter: e.target.value}, () => {
+                        newFilt22.map(f => {f.levels[0] == this.state.levelFilter && newFilt33.push(f)});
+                        this.setState({filterFrameworks: newFilt33});  
+                    });
                 }
-                let newFilt22 = [];
-                if (this.state.yearFilter != '') {
-                    newFilt11.map(f => {f.year == this.state.yearFilter && newFilt22.push(f)});
-                } else {
-                    newFilt22 = newFilt11;
-                }
-                let newFilt33 = [];
-                this.setState({levelFilter: e.target.value}, () => {
-                    newFilt22.map(f => {f.levels[0] == this.state.levelFilter && newFilt33.push(f)});
-                    this.setState({filterFrameworks: newFilt33});  
-                });
                 break;
             case "frameworkYear":
-                let newFilt111 = [];
-                if (this.state.authorFilter != '') {
-                filt.map(f => {f.author[0].toUpperCase() == this.state.authorFilter && newFilt111.push(f)});
+                if (e.target.value == '' && this.state.authorFilter == '' && this.state.levelFilter == '') {
+                    this.setState({filterFrameworks: filt});
                 } else {
-                newFilt111 = filt;
+                    let newFilt111 = [];
+                    if (this.state.authorFilter != '') {
+                    filt.map(f => {f.author == this.state.authorFilter && newFilt111.push(f)});
+                    } else {
+                    newFilt111 = filt;
+                    }
+                    let newFilt222 = [];
+                    if (this.state.levelFilter != '') {
+                    newFilt111.map(f => {f.levels[0] == this.state.levelFilter && newFilt222.push(f)});                  
+                    } else {
+                    newFilt222 = newFilt111;
+                    }
+                    let newFilt333 = [];
+                    this.setState({yearFilter: e.target.value}, () => {
+                        newFilt222.map(f => {f.year == this.state.yearFilter && newFilt333.push(f)});
+                        this.setState({filterFrameworks: newFilt333});  
+                    });
                 }
-                let newFilt222 = [];
-                if (this.state.levelFilter != '') {
-                newFilt111.map(f => {f.levels[0] == this.state.levelFilter && newFilt222.push(f)});                  
-                } else {
-                newFilt222 = newFilt111;
-                }
-                let newFilt333 = [];
-                this.setState({yearFilter: e.target.value}, () => {
-                    newFilt222.map(f => {f.year == this.state.yearFilter && newFilt333.push(f)});
-                    this.setState({filterFrameworks: newFilt333});  
-                });
                 break;
         }
-        
     }
 
     updateSearch(e) {
@@ -153,13 +171,14 @@ class Browse extends React.Component {
                         <label className = "filterLabel" htmlFor = "authorName">Contributing Organization</label>
                         <br />
                         <select ref = {this.optRef} className = "filterSelect" id = "authorName" onChange = {event => this.generalFilter(event)}>
-                            {' ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('').map(letter => <option value = {letter}>{letter}</option>)}
+                            <option value = ""></option>
+                            {this.state.orgs.map(letter => <option value = {letter}>{letter}</option>)}
                         </select>
                         <br />
                         <label className = "filterLabel" htmlFor = "edLevel">Education Level</label>
                         <br />
                         <select ref = {this.optRef2} className = "filterSelect" id = "edLevel" onChange = {event => this.generalFilter(event)}>
-                            {["","K-12", "Collegiate", "Postgraduate", "Professional"].map(lev => <option value = {lev}>{lev}</option>)}
+                            {["","K12", "Collegiate", "Postgraduate", "Professional"].map(lev => <option value = {lev}>{lev}</option>)}
                         </select>
                         <br />
                         <label className = "filterLabel" htmlFor = "frameworkYear">Year</label>
