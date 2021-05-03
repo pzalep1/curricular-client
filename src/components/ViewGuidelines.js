@@ -30,7 +30,7 @@ export default class ViewGuidelines extends React.Component {
                     elem.selected = false;
                     elem.id = Math.random().toString(36).substring(7);
                 })
-                if (data.length != 0) {
+                if (data.length !== 0) {
                     this.setState({guidelines: this.state.guidelines.concat(data)}, () => {
                         let copyState = this.state.guidelines;
                         copyState.shift();
@@ -74,7 +74,7 @@ export default class ViewGuidelines extends React.Component {
     }
 
     displayGuidelines() {
-        if (this.state.guidelines.length == 0) {
+        if (this.state.guidelines.length === 0) {
             return null;
         } else {
             return this.state.guidelines.map(gl => <li id = {gl.id} onClick = {this.selectGuideline} className = {gl.selected ? "selectedGuideline" : "notGuideline"}>{gl.name}</li>);

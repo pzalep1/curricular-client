@@ -55,7 +55,7 @@ class Browse extends React.Component {
 
     generalFilter(e) {
         let filt = [];
-        if (this.state.search == '') {
+        if (this.state.search === '') {
             filt = [...this.state.released];
         } else {
             filt = [...this.state.released];
@@ -67,70 +67,70 @@ class Browse extends React.Component {
         }
         switch (e.target.id) {
             case "authorName":
-                if (e.target.value == '' && this.state.levelFilter == '' && this.state.yearFilter == '') {
+                if (e.target.value === '' && this.state.levelFilter === '' && this.state.yearFilter === '') {
                     this.setState({filterFrameworks: filt});
                 } else {
                     let newFilt1 = [];
-                    if (this.state.levelFilter != '') {
-                        filt.map(f => {f.levels[0] == this.state.levelFilter && newFilt1.push(f)});
+                    if (this.state.levelFilter !== '') {
+                        filt.map(f => {f.levels[0] === this.state.levelFilter && newFilt1.push(f)});
                     } else {
                         newFilt1 = filt;
                     }
                     let newFilt2 = [];
-                    if (this.state.yearFilter != '') {
-                        newFilt1.map(f => {f.year == this.state.yearFilter && newFilt2.push(f)});
+                    if (this.state.yearFilter !== '') {
+                        newFilt1.map(f => {f.year === this.state.yearFilter && newFilt2.push(f)});
                     } else {
                         newFilt2 = newFilt1;
                     }
                     let newFilt3 = [];
                     this.setState({authorFilter: e.target.value}, () => {
-                        newFilt2.map(f => {f.author == this.state.authorFilter && newFilt3.push(f)});
+                        newFilt2.map(f => {f.author === this.state.authorFilter && newFilt3.push(f)});
                         this.setState({filterFrameworks: newFilt3});  
                     });
                 }
                 break;
             case "edLevel":
-                if (e.target.value == '' && this.state.authorFilter == '' && this.state.yearFilter == '') { 
+                if (e.target.value === '' && this.state.authorFilter === '' && this.state.yearFilter === '') { 
                     this.setState({filterFrameworks: filt});
                 } else {
                     let newFilt11 = [];
-                    if (this.state.authorFilter != '') {
-                        filt.map(f => {f.author == this.state.authorFilter && newFilt11.push(f)});
+                    if (this.state.authorFilter !== '') {
+                        filt.map(f => {f.author === this.state.authorFilter && newFilt11.push(f)});
                     } else {
                         newFilt11 = filt;
                     }
                     let newFilt22 = [];
-                    if (this.state.yearFilter != '') {
-                        newFilt11.map(f => {f.year == this.state.yearFilter && newFilt22.push(f)});
+                    if (this.state.yearFilter !== '') {
+                        newFilt11.map(f => {f.year === this.state.yearFilter && newFilt22.push(f)});
                     } else {
                         newFilt22 = newFilt11;
                     }
                     let newFilt33 = [];
                     this.setState({levelFilter: e.target.value}, () => {
-                        newFilt22.map(f => {f.levels[0] == this.state.levelFilter && newFilt33.push(f)});
+                        newFilt22.map(f => {f.levels[0] === this.state.levelFilter && newFilt33.push(f)});
                         this.setState({filterFrameworks: newFilt33});  
                     });
                 }
                 break;
             case "frameworkYear":
-                if (e.target.value == '' && this.state.authorFilter == '' && this.state.levelFilter == '') {
+                if (e.target.value === '' && this.state.authorFilter === '' && this.state.levelFilter === '') {
                     this.setState({filterFrameworks: filt});
                 } else {
                     let newFilt111 = [];
-                    if (this.state.authorFilter != '') {
-                    filt.map(f => {f.author == this.state.authorFilter && newFilt111.push(f)});
+                    if (this.state.authorFilter !== '') {
+                    filt.map(f => {f.author === this.state.authorFilter && newFilt111.push(f)});
                     } else {
                     newFilt111 = filt;
                     }
                     let newFilt222 = [];
-                    if (this.state.levelFilter != '') {
-                    newFilt111.map(f => {f.levels[0] == this.state.levelFilter && newFilt222.push(f)});                  
+                    if (this.state.levelFilter !== '') {
+                    newFilt111.map(f => {f.levels[0] === this.state.levelFilter && newFilt222.push(f)});                  
                     } else {
                     newFilt222 = newFilt111;
                     }
                     let newFilt333 = [];
                     this.setState({yearFilter: e.target.value}, () => {
-                        newFilt222.map(f => {f.year == this.state.yearFilter && newFilt333.push(f)});
+                        newFilt222.map(f => {f.year === this.state.yearFilter && newFilt333.push(f)});
                         this.setState({filterFrameworks: newFilt333});  
                     });
                 }
@@ -139,10 +139,10 @@ class Browse extends React.Component {
     }
 
     updateSearch(e) {
-        let tempFrames = (this.state.authorFilter == '' && this.state.yearFilter == '' && this.state.levelFilter == '') ? [...this.state.frameworks] : [...this.state.filterFrameworks];
+        let tempFrames = (this.state.authorFilter === '' && this.state.yearFilter === '' && this.state.levelFilter === '') ? [...this.state.frameworks] : [...this.state.filterFrameworks];
         let resFrames = [];
         //search either by name, year, level, or author 
-        if (e.target.value != "") {
+        if (e.target.value !== "") {
             for (let a = 0; a < tempFrames.length; a++) {
                 tempFrames[a].name.toLowerCase().includes(e.target.value.toLowerCase()) && resFrames.push(tempFrames[a]);
             } 
