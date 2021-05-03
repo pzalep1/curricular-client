@@ -11,7 +11,6 @@ export default class GuidelinesPopup extends Component {
   }
 
   componentDidMount() {
-    console.log("yeah");
     this.setState({showing: this.props.show});
   }
 

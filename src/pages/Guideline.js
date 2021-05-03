@@ -29,7 +29,12 @@ class GuidelineBuilder extends React.Component {
     }
 
     componentDidMount() {
-        this.state.guideline[0].id = Math.random().toString(36).substring(7);
+        this.setState({guideline: [{
+            "id": `${Math.random().toString(36).substring(7)}`,
+            "selected": true,
+            "name": "New Guideline",
+            "guidelineText": "Insert Content for Guideline here"
+        }]});
         this.getFramework();
     }
 
@@ -39,7 +44,6 @@ class GuidelineBuilder extends React.Component {
         this.setState({author: framework.author});
         this.setState({year: framework.year});
         this.setState({level: framework.levels});
-        console.log(framework);
     }
 
     async retrieveFramework(frameworkId) {
@@ -115,7 +119,6 @@ class GuidelineBuilder extends React.Component {
                 let temp = [...this.state.guideline];
                 temp[this.selectedInputNumber() - 1].selected = true;
                 temp.splice(this.selectedInputNumber() + 1, 1);
-                console.log(temp);
                 this.setState((guideline) => ({guideline: temp}));
             }
         } else {
@@ -159,7 +162,6 @@ class GuidelineBuilder extends React.Component {
         //Copy state and remove the guideline id and selected attributes (these are not necessary for the backend)
         let copyState = {guideline: this.state.guideline};
         copyState.guideline = copyState.guideline.map(({id, selected, ...rest}) => rest);
-        console.log(copyState);
         copyState.guideline.map(guideline => {
             this.createGuidelines({
                 guideline

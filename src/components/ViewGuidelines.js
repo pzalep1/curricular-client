@@ -19,8 +19,6 @@ export default class ViewGuidelines extends React.Component {
     }
 
     componentDidMount() {
-        console.log("hit there",);
-        this.state.guidelines[0].id = Math.random().toString(36).substring(7);
         this.getGuidelines();
     }
 
@@ -28,12 +26,18 @@ export default class ViewGuidelines extends React.Component {
         fetch(process.env.REACT_APP_API_URL+'/frameworks/'+this.props.framework._id+'/guidelines')
             .then(res => res.json())
             .then(data => {
-                console.log(data)
                 data.forEach(function (elem) {
                     elem.selected = false;
                     elem.id = Math.random().toString(36).substring(7);
                 })
-                this.setState({guidelines: this.state.guidelines.concat(data)})
+                if (data.length != 0) {
+                    this.setState({guidelines: this.state.guidelines.concat(data)}, () => {
+                        let copyState = this.state.guidelines;
+                        copyState.shift();
+                        copyState[0].selected = true;
+                        this.setState({guidelines: copyState});
+                    })
+                }
             })
     }
 
@@ -69,6 +73,14 @@ export default class ViewGuidelines extends React.Component {
         }
     }
 
+    displayGuidelines() {
+        if (this.state.guidelines.length == 0) {
+            return null;
+        } else {
+            return this.state.guidelines.map(gl => <li id = {gl.id} onClick = {this.selectGuideline} className = {gl.selected ? "selectedGuideline" : "notGuideline"}>{gl.name}</li>);
+        }
+    }
+
 
     render() {
         return [
@@ -86,8 +98,9 @@ export default class ViewGuidelines extends React.Component {
                 <div className="guidelineArea2">
                     <div className="guidelines">
                         <ul className="guidelineList2">
+                            {/* {this.displayGuidelines} */}
                             {this.state.guidelines.map(gl => <li id = {gl.id} onClick = {this.selectGuideline} className = {gl.selected ? "selectedGuideline" : "notGuideline"}>{gl.name}</li>)} 
-                            </ul>
+                        </ul>
                     </div>
                     <div className = "guidelineEdit2">
                             <span className = "glSectionLabel" >Guideline Name</span><br />

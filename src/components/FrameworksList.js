@@ -74,7 +74,6 @@ export default class FrameworkList extends React.Component {
 
     render() {
         if (window.location.pathname === '/browse' || window.location.pathname === '/browse?') {
-            console.log("rendering browse list")
             return [
                 <div className="frameworkList-wrapper">
                 <div className="frameworks-title">
