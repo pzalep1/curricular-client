@@ -1,0 +1,54 @@
+.user-dashboard {
+    display: flex;
+    height: 100%;
+    width: 100%;
+}
+
+.user-sidebar {
+    height: 100%;
+    width: 160px;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    background-color: var(--main-color);
+    padding-top: 20px;
+    border-top-right-radius: 2px;
+}
+
+.user-sidebarbutton_wrapper {
+    display: flex;
+    color: white;
+    font-weight: bold;
+    padding-top: 10px;
+}
+
+.create-frameworkButton {
+    color: var(--main-color);
+    background-color: white;
+    font-size: 14pt;
+    margin: 0 5px ;
+    text-decoration: none;
+    border-radius: 3px;
+}
+
+.user-frameworks {
+    padding-top: 50px;
+    padding-left: 190px;
+    display: block;
+}
+
+.user-framework_title {
+    /*The grid on frameworks list centers this h1 tag; 
+    the padding pushes the title to the left until the 
+    the .admin-frameworks padding is hit
+    */
+    padding-right: 800px;
+    color: var(--main-color)
+}
+
+.user-dashboard-image {
+    background-color: white;
+    width: 100px;
+    margin: 0 27px;
+    border-radius: 3px;
+}

@@ -1,0 +1,53 @@
+.framework-wrapper {
+    padding: 50px;
+}
+
+.framework-title {
+    margin: 0 0 10px 0;
+    text-align:center;
+    color: white;
+    font-size: 24pt;
+}
+
+.create-framework-wrapper {
+    display: flex;
+    width: 100%;
+}
+
+#create-framework-legend {
+    font-size: 14pt;
+    color: white;
+    padding-right: 10px;
+}
+
+.name-wrapper {
+    width: 100%;
+}
+
+.framework-name-input {
+    border-radius: 3px;
+    padding: 5px;
+    font-size: 12pt;
+}
+
+.select-wrapper {
+    display: flex;
+    padding-top: 10px;
+}
+
+.selectInput {
+    border-radius: 3px;
+    font-size: 12pt;
+}
+
+.create-button-wrapper {
+    display: flex;
+    padding-top: 20px;
+}
+
+.create-framework-button {
+    text-decoration: none;
+    color: white;
+    font-size: 14pt;
+    margin: 0 50px;
+}

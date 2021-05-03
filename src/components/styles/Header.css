@@ -1,0 +1,37 @@
+nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+  
+.header-image {
+    display: flex;
+    flex-direction: row;
+    height: 100px;
+    width: 100px;
+    padding-left: 10px;
+}
+  
+button {
+    border: none;
+    border-radius: 5px;
+    font-size: 14pt;
+    padding: 8px;
+    margin: 10px 5px 10px 5px;
+    background-color:var(--main-color);
+    color: white;
+} 
+  
+.buttons {
+    padding-right: 10px;
+}
+  
+#login {
+    background-color: var(--main-color);  
+}
+
+.header-button {
+    text-decoration: none;
+    color: white;
+}

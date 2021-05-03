@@ -1,38 +1,30 @@
-.App {
-  text-align: center;
+/* Begin global styles  */
+html * {
+  font-family: 'Varela' !important;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.body-wrapper {
+  height: 100%;
+  width: 100%;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+.footer-wrapper {
+  background-color: var(--main-color);
   color: white;
+  position: fixed;
+  text-align: center;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  bottom:0;
+  width:100%;
 }
 
-.App-link {
-  color: #61dafb;
+:root {
+  --main-color: #4B7C9B; 
+  --main-color-mute: rgb(75, 124, 155, 0.5);
+  --alt-color: rgb(145, 81, 53, 1);
+  --alt-color-mute: rgb(145, 81, 53, 0.5);
+  --grey-scale-light: #D8D8D8;
 }
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
+/* End global styles  */

@@ -1,0 +1,82 @@
+.section-wrapper {
+    position: relative;
+    background-image: url('./../../components/splash.png');
+    background-position: bottom;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.splash-wrapper{
+    height: 100%;
+    min-height: 300px;
+    padding: 75px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.search {
+    border: none;
+    width: 600px;
+    box-sizing: border-box;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+h1 {
+    color: white;
+    font-size: 36pt;
+    font-style: bold;
+    text-align: center;
+  }
+
+  .searchWrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .search-buttons {
+    width: 580px;
+    text-align: center;
+    margin-top: 30px;
+    border-radius: 5px;
+  }
+
+  button {
+    margin-left: 20px;
+    border: none;
+    padding: 10px;
+    border-radius: 3px;
+    color: color-accent();
+    cursor: pointer;
+  }
+
+  .info-wrapper {
+    height: 100%;
+    padding: 50px 150px 50px 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .welcome-title {
+      color: var(--main-color);
+      padding: 20px;
+      font-weight: bold;
+  }
+
+  .info-box {
+      text-align: center;
+  }
+
+  .info-browse {
+      color: var(--main-color)
+  }
+
+  .link {
+      color: white;
+      font-size: 24pt;
+  }

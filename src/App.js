@@ -1,16 +1,34 @@
-import logo from './logo.svg';
+import React from 'react';
 import './App.css';
-function Welcome(props) {
-  return <h1>Hello, {props.name}</h1>;
-}
+
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route
+} from 'react-router-dom';
+
+//Pages
+import Home from './pages/Home';
+import Browse from './pages/Browse';
+import Guideline from './pages/Guideline';
+import UserDashboard from './pages/UserDashboard';
+
 function App() {
-  const apiUrl = 'http://localhost:3000';
-    fetch(apiUrl)
-      .then((response) => response.json())
-      .then((data) => console.log('This is your data', data));
-  return (
-    <Welcome name="Sara" />
-  );
+  
+  return ([
+    <Router>
+      <div className="body-wrapper">
+        <Switch>
+          <Route exact path="/framework/:frameworkId/guidelines" component={Guideline}/>
+          <Route exact path="/dashboard" component={UserDashboard}/>
+          <Route exact path="/browse" component={Browse}/>
+          <Route exact path="/">
+            <Home/>
+          </Route>
+        </Switch>
+      </div>
+    </Router>
+  ]);
 }
 
 export default App;
