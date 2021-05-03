@@ -30,10 +30,16 @@ class Browse extends React.Component {
         fetch(process.env.REACT_APP_API_URL+'/frameworks')
             .then(res => res.json())
             .then(data => {
-                this.setState({frameworks: data}, () => {
+                let released = data.filter(framework => {
+                    if (framework.status === "released") {
+                        return framework
+                    }
+                })
+                this.setState({released: released})
+                this.setState({frameworks: released}, () => {
                     let temp = [];
                     let copyFrames = [...this.state.frameworks];
-                    copyFrames.map(framework => temp.push(framework.author));
+                    copyFrames.map(framework => temp.indexOf(framework.author) === -1 ? temp.push(framework.author) : null);
                     this.setState({orgs: temp});
                 })
                 this.setState({filterFrameworks: data});
@@ -50,9 +56,9 @@ class Browse extends React.Component {
     generalFilter(e) {
         let filt = [];
         if (this.state.search == '') {
-            filt = [...this.state.frameworks];
+            filt = [...this.state.released];
         } else {
-            filt = [...this.state.frameworks];
+            filt = [...this.state.released];
             let nf = [];
             for (let a = 0; a < filt.length; a++) {
                 filt[a].name.toLowerCase().includes(this.state.search.toLowerCase()) && nf.push(filt[a]);

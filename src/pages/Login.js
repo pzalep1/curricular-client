@@ -26,7 +26,11 @@ export default function Login({ setToken }) {
             email,
             password
         });
-        setToken(access_token)
+        if (await access_token) {
+            setToken(access_token);
+            window.location.reload();
+        }
+        
     }
 
     function valiateForm() {

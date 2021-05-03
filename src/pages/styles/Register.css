@@ -7,6 +7,7 @@
 }
 
 .registrationPage {
+    overflow: scroll;
     margin: 50px auto;
     max-width: 30%;
     background-color: white;

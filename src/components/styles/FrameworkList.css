@@ -27,6 +27,20 @@ span {
     border-width: thin;
 }
 
+.admin_framework-list {
+    padding: 10px;
+    display: grid;
+    grid-template-columns: 315px 120px 320px 150px 150px;
+    border-style: solid;
+    border-radius: 3px;
+    border-color: var(--main-color-mute);
+    border-width: thin;
+}
+
 .hidden-framework {
     display:none;
+}
+
+.delete-button {
+    background-color: var(--alt-color)
 }

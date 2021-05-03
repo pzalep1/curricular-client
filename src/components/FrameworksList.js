@@ -52,6 +52,22 @@ export default class FrameworkList extends React.Component {
         this.setState({frameworks: copyFrames});
     }
 
+    releaseFramework(id) {
+        fetch(process.env.REACT_APP_API_URL+'/frameworks/'+id, {
+            method: 'PATCH',
+            headers: {
+                'Access-Control-Allow-Origin': '*',
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify({ "framework" : {"status" : "released" }})
+        })
+            .then(res => {
+                res.json();
+                window.location.reload();
+            })
+        }
+
     checkSearch(frameworkID) {
         if (typeof this.props.searchResults !== "undefined") {
             let flag = false;
@@ -110,13 +126,14 @@ export default class FrameworkList extends React.Component {
                     <div className="frameworkList_list-wrapper">
                         <div>
                             {this.state.frameworks.map((framework )=> 
-                               (<li key={framework._id} className="framework-list" >
+                               (<li key={framework._id} className="admin_framework-list" >
                                     <span>{framework.name}</span>
                                     <span>{framework.year}</span>
                                     <span>{framework.author}</span>
                                     <span>{framework.levels}</span>
                                     <button key={framework._id} className="view-guidelinesbttn" onClick={() => this.isShowing(framework._id)}>View Guidelines</button>
                                     {<GuidelinesPopup show = {framework.showing} fid = {framework._id} key={framework._id} framework={framework} toggle = {this.isShowing} />}
+                                    {framework.status === 'released' ? null: <button onClick={() => this.releaseFramework(framework._id)}>Release Framework</button>}
                                 </li> ) 
                             )}
                         </div>

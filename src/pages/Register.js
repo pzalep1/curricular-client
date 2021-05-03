@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import './styles/Register.css';
-import Logo from './../components/favicon.png'
+import Logo from './../components/favicon.png';
 
 async function registerUser(credentials) {
     return fetch(process.env.REACT_APP_API_URL+"/users", {
@@ -11,10 +11,14 @@ async function registerUser(credentials) {
         },
         body: JSON.stringify({"user":credentials})
     })
-        .then(res => res.text())
-        .then(text => console.log(text));
+        .then(async res => {
+            let response = await res.json();
+            if (!response.ok) {
+                window.alert(response.message);
+            }
+        })
 }
-export default function Register() {
+export default function Register({setUser}) {
     
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
@@ -29,6 +33,7 @@ export default function Register() {
             name,
             organization
         });
+        setUser(true);
     }
 
     function valiateForm() {
@@ -43,7 +48,7 @@ export default function Register() {
     return (
         <div className="registrationPage">
             <img className="logo" src={Logo} alt="Curricular Coffee"/>
-            <h1 className="registertion-header">REGISTER</h1>
+            <h1 className="registration-header">REGISTER</h1>
             <form onSubmit={handleSubmit}>
                 <fieldset className="input">
                     <legend>Email</legend>
