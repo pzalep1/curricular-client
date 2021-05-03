@@ -4,14 +4,6 @@ import {Link} from 'react-router-dom';
 import Header from'./../components/Header';
 import Footer from './../components/Footer';
 
-function handleChange() {
-    console.log("handleChange not implemented!")
-}
-
-function handleSubmit() {
-    console.log("handleSubmit not implemented!")
-}
-
 export default function Home() {
 
     return [
@@ -21,7 +13,7 @@ export default function Home() {
         <div className="section-wrapper" key="homePage">
             <div className="splash-wrapper">
                 <h1>CURRICULAR SEARCHING MADE EASY</h1>
-                <form className="search" onSubmit={handleSubmit}>
+                <form className="search">
                     <div className="search-buttons">
                         <button type="button">
                             <Link className="link" to="/browse">Browse All</Link>
