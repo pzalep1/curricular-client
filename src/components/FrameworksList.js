@@ -64,7 +64,7 @@ export default class FrameworkList extends React.Component {
         })
             .then(res => {
                 res.json();
-                window.location.reload();
+                this.getFrameworks();
             })
         }
 
