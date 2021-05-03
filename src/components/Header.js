@@ -19,7 +19,7 @@ export default function Header(){
   const [login, setLogin] = useState(false);
   
   function renderButtons() {
-    if (access_token) {
+    if (sessionStorage.getItem('token')) {
       return[
         <div className="buttons">
           <button><Link className="header-button" to="/dashboard">DASHBOARD</Link></button><button onClick={handleLogout}><Link className="header-button" to="/">LOGOUT</Link></button>
