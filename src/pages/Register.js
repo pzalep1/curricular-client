@@ -11,16 +11,7 @@ async function registerUser(credentials) {
         },
         body: JSON.stringify({"user":credentials})
     })
-        .then(res => res.text()
-            // {
-            // if (res.status < 400) {
-            //     res.json();
-            // } else {
-            //     console.log(res);
-            //     window.alert(res.status+" "+res.statusText)
-            // }
-        //}
-        )
+        .then(res => res.text())
         .then(text => console.log(text));
 }
 export default function Register() {

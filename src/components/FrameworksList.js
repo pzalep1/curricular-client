@@ -40,16 +40,11 @@ export default class FrameworkList extends React.Component {
             })
             .catch(error => console.log(error));
     }
- 
-
-    setKey(framework) {
-        
-    }
 
     isShowing(frameId) {
         let copyFrames = [...this.state.frameworks];
         for (let j = 0; j < copyFrames.length; j++) {
-            if (copyFrames[j]._id == frameId) {
+            if (copyFrames[j]._id === frameId) {
                 copyFrames[j].showing = !copyFrames[j].showing;
             }
         }
@@ -58,7 +53,7 @@ export default class FrameworkList extends React.Component {
     }
 
     checkSearch(frameworkID) {
-        if (typeof this.props.searchResults != "undefined") {
+        if (typeof this.props.searchResults !== "undefined") {
             let flag = false;
             for (let j = 0; j < this.props.searchResults.length; j++) {
                 if (this.props.searchResults[j]._id === frameworkID) {
@@ -74,11 +69,10 @@ export default class FrameworkList extends React.Component {
 
     render() {
         if (window.location.pathname === '/browse' || window.location.pathname === '/browse?') {
-            console.log("rendering browse list")
             return [
                 <div className="frameworkList-wrapper">
                 <div className="frameworks-title">
-                    <h1 className="admin-framework_title">Total Frameworks ({this.state.count})</h1>
+                    <h1 className="admin-framework_title">Results:</h1>
                 </div>
                 <div className="framework-header">
                     <span>Name</span>
@@ -88,15 +82,15 @@ export default class FrameworkList extends React.Component {
                 </div>
                 <div className="frameworkList_list-wrapper">
                     <div>
-                        {this.state.frameworks.map(framework => (
-                            <div key={framework._id} className={this.checkSearch(framework._id) ? "framework-list" : "hidden-framework"}>
+                        {this.state.released.map(framework => (
+                            <li key={framework._id} className={this.checkSearch(framework._id) ? "framework-list" : "hidden-framework"}>
                                 <span>{framework.name}</span>
                                 <span>{framework.year}</span>
                                 <span>{framework.author}</span>
                                 <span>{framework.levels}</span>
-                                <button key={this.setKey(framework)} className="view-guidelinesbttn" onClick={() => this.isShowing(framework._id)}>View Guidelines</button>
+                                <button key={framework._id} className="view-guidelinesbttn" onClick={() => this.isShowing(framework._id)}>View Guidelines</button>
                                 {<GuidelinesPopup show = {framework.showing} fid = {framework._id} key={framework._id} framework={framework} toggle = {this.isShowing} />}
-                            </div> ))}
+                            </li> ))}
                     </div>
                 </div>
             </div>
@@ -107,7 +101,7 @@ export default class FrameworkList extends React.Component {
                     <div className="frameworks-title">
                         <h1 className="admin-framework_title">Total Frameworks ({this.state.count})</h1>
                     </div>
-                    <div className="framework-header">
+                    <div className="admin-framework-header">
                         <span>Name</span>
                         <span>Year</span>
                         <span>Author</span>
@@ -121,7 +115,7 @@ export default class FrameworkList extends React.Component {
                                     <span>{framework.year}</span>
                                     <span>{framework.author}</span>
                                     <span>{framework.levels}</span>
-                                    <button key={this.setKey(framework)} className="view-guidelinesbttn" onClick={() => this.isShowing(framework._id)}>View Guidelines</button>
+                                    <button key={framework._id} className="view-guidelinesbttn" onClick={() => this.isShowing(framework._id)}>View Guidelines</button>
                                     {<GuidelinesPopup show = {framework.showing} fid = {framework._id} key={framework._id} framework={framework} toggle = {this.isShowing} />}
                                 </li> ) 
                             )}
