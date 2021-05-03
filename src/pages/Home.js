@@ -22,19 +22,10 @@ export default function Home() {
             <div className="splash-wrapper">
                 <h1>CURRICULAR SEARCHING MADE EASY</h1>
                 <form className="search" onSubmit={handleSubmit}>
-                    <div className="searchWrapper">
-                    <input
-                            className="search"
-                            placeholder="Search curriculum by organizations or keywords..."
-                            onChange={handleChange}
-                        />
-                        <label className="search-icon"><i className="fas fa-search"></i></label>
-                    </div>
                     <div className="search-buttons">
                         <button type="button">
                             <Link className="link" to="/browse">Browse All</Link>
                         </button>
-                        <button type="submit" onClick={handleChange}>Search</button>
                     </div>
                 </form>
             </div>

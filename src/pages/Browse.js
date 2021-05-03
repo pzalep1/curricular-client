@@ -205,7 +205,7 @@ class Browse extends React.Component {
                         <input
                             ref = {this.searchRef}
                             className="browse-search"
-                            placeholder="Search curriculum by organizations or keywords..."
+                            placeholder="Search curriculum by framework names..."
                             defaultValue={this.state.search} 
                             onChange={event => this.updateSearch(event)}
                         />
